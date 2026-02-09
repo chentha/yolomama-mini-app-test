@@ -1,0 +1,104 @@
+@use '../styles/var.scss' as m;
+
+
+.container {
+    padding-bottom: 80px;
+}
+
+// Wrapper for cart bar with fixed positioning
+.cart-bar-wrapper {
+    .container {
+        padding-bottom: 0;
+    }
+
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: m.$white;
+    z-index: 1000;
+    pointer-events: none;
+    font-size: m.$font-size-14;
+
+    // Cart bar styling
+    .cart-bar {
+        pointer-events: auto;
+        background-color: m.$white;
+        height: 80px;
+        // border-top-left-radius: 15px;
+        // border-top-right-radius: 15px;
+        padding: 10px 0 0 0;
+        // box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+
+        .btn-cart {
+            height: m.$de-height-btn;
+            background: m.$primary-btn;
+            color: rgba(255, 255, 255, 0.833);
+            border-radius: 14px;
+            font-weight: 500;
+            cursor: pointer;
+
+            .total-item {
+                font-size: m.$font-size-12;
+                width: 30px;
+                height: 30px;
+                border-radius: 100%;
+                border: 1px solid rgba(255, 255, 255, 0.446);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+    }
+}
+
+
+//input style
+.qty-input {
+    width: 42px;
+    height: 27px;
+    padding: 5px;
+    font-size: m.$font-size-12;
+    background-color: m.$gray-200;
+
+    &:focus {
+        border-color: m.$primary-btn;
+        box-shadow: none;
+        background-color: m.$gray-200;
+    }
+}
+
+
+//hide the increase / decrease (spinner) arrows
+input[type=number] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+}
+
+
+//button decrease and increase style 
+.btn-decrease,
+.btn-increase {
+    width: 27px;
+    height: 27px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid m.$gray-300;
+    background: none;
+
+    &:hover{
+        background: m.$gray-100;
+    }
+
+    &:focus{
+        background: m.$gray-100;
+    }
+}
+

@@ -1,0 +1,66 @@
+@use '../../../../assets/styles/var.scss' as m;
+
+
+.line-dashed {
+    border: 1px dashed m.$gray-500;
+}
+
+.list-item {
+    border-radius: 8px;
+    border: 1px solid m.$gray-300;
+    font-size: m.$font-size-14;
+}
+
+//card item
+.card {
+    border-radius: 8px;
+
+    .card-body {
+        padding: 10px;
+
+        .item-image {
+            width: 60px;
+            height: 40px;
+            object-fit: contain;
+        }
+    }
+}
+
+
+//payment list style
+.payment_method {
+    .list-group-item {
+        width: 100%;
+        height: 50px;
+        border-radius: 10px;
+        margin-bottom: 10px;
+        padding: 5px 5px;
+        border: 1px solid m.$gray-300;
+        font-size: m.$font-size-14;
+
+        img {
+            width: 40px;
+            border-radius: 8px;
+        }
+
+        // &:active {
+        //     border: 2px solid m.$primary-btn;
+        //     border-radius: 8px;
+        //     background-color: #3a9b6b2f;
+        // }
+    }
+}
+
+//active payment method
+.payment_method .list-group-item.active {
+    border: 1px solid m.$primary-btn;
+    border-radius: 8px;
+    background-color: #3a9b6b2f;
+    color: m.$gray-800;
+}
+
+
+//list price item
+.list-price {
+    font-size: m.$font-size-14;
+}

@@ -1,0 +1,46 @@
+<div class="container mt-2">
+    <div class="row justify-content-center p-2">
+        <div class="col-12 col-md-9 col-lg-6">
+            <div class="row">
+                <div class="col-6 col-sm-4 col-md-4 col-lg-4 p-2 position-relative" *ngFor="let p of products">
+                    <div *ngIf="p.qty > 0" class="count-item">
+                        {{p.qty}}
+                    </div>
+                    <div class="card shadow-sm">
+                        <img [src]="p.image" class="card-img-top p-2" alt="" />
+
+                        <div class="card-body">
+                            <h6 class="item-name mb-1">{{ p.name }}</h6>
+                            <p class="item-price text-muted mb-2">${{ p.price }}</p>
+
+                            <div class="d-flex align-items-center gap-2">
+                                <button class="btn btn-light btn-sm btn-decrease" (click)="decrease(p)">-</button>
+                                <input type="number" class="form-control text-center qty-input" [value]="p.qty"
+                                    (input)="onQtyChange($event, p)" min="0" />
+                                <button class="btn btn-light btn-sm btn-increase" (click)="increase(p)">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Bottom Cart Bar -->
+<div *ngIf="totalItems > 0" class="cart-bar-wrapper">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-9 col-lg-6">
+                <div class="cart-bar">
+                    <div (click)="AddCart()" routerLink="/checkout" class="btn-cart d-flex justify-content-between align-items-center px-3">
+                        <span class="total-item">{{ totalItems }}</span>
+                        <span>View your cart</span>
+                        <span>${{ totalPrice.toFixed(2) }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -57,3 +57,8 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 ## Additional Resources
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+
+NPM INSTALL :
+    03 / Feb / 2026: npm install bootstrap
+    04 / Feb / 2026: npm i @twa-dev/sdk
+    06 / Feb / 2026: npm install crypto-js
