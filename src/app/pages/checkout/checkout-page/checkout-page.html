@@ -2,7 +2,7 @@
     <div class="row justify-content-center">
         <div class="col-12 col-md-9 col-lg-6">
 
-            <h6 class="mb-3">Your item &#40;{{ CartData.length }}&#41;</h6>
+            <h6 class="mb-3">Your item &#40;{{ CartData?.length || 0 }}&#41;</h6>
 
             <!-- Item Card -->
             <div *ngFor="let data of CartData" class="card list-item mb-2">

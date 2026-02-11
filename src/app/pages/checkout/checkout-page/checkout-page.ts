@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { CartService } from '../../../core/services/cart.service';
 import { PaymentMethod } from '../../../core/services/payment-method';
-import { BrowserModule } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-checkout-page',
@@ -32,7 +31,7 @@ export class CheckoutPage {
   getData(){
     this.cartService.getCart().subscribe(
       (respone:any) =>{
-        console.log('data cart', respone);
+        // console.log('data cart', respone);
         this.CartData = respone[0]?.product; 
 
         if(this.CartData){
@@ -92,7 +91,7 @@ export class CheckoutPage {
       }
     }
 
-    console.log('CartData:', this.CartData);
+    // console.log('CartData:', this.CartData);
   }
 
 
