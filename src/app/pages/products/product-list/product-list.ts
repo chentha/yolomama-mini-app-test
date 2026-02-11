@@ -59,6 +59,7 @@ export class ProductList {
 
 AllData: Product[] = [];
 UserInfo: any;
+checkUserInfo:any;
 
   constructor(
     private cartService: CartService,
@@ -68,7 +69,14 @@ UserInfo: any;
   }
 
   ngOnInit(){
-    console.log('data loaded item list')
+    this.LoadTelegramUserInfo();
+    this.hideBackButton();
+  }
+
+
+  //hide back btn in topbar tg
+  hideBackButton() {
+    this.telegramService.hideBackButton();
   }
 
 
@@ -88,10 +96,30 @@ UserInfo: any;
 
 
   //Telegram process 
-  LoadTelegramUserInfo(){
+  // LoadTelegramUserInfo(){
 
-    //request phone number user 
-    const phone_number = this.telegramService.requestPhoneNumber();
+  //   //request phone number user 
+  //   const phone_number = this.telegramService.requestPhoneNumber();
+  //   const webApp = this.telegramService.getWebApp();
+  //   const user = webApp.initDataUnsafe?.user || null;
+
+  //   this.UserInfo = {
+  //     id: user?.id || null,
+  //     firstName: user?.first_name || null,
+  //     lastName: user?.last_name || null,
+  //     username: user?.username || null,
+  //     phone_number: phone_number
+  //   }
+  // }
+
+   async LoadTelegramUserInfo() {
+    this.checkUserInfo = this.telegramService.getUserInStorage();
+    if (this.checkUserInfo) {
+      console.log('Loaded UserInfo from localStorage:', this.checkUserInfo);
+      this.UserInfo = this.checkUserInfo;
+      return;
+    }
+
     const webApp = this.telegramService.getWebApp();
     const user = webApp.initDataUnsafe?.user || null;
 
@@ -100,10 +128,17 @@ UserInfo: any;
       firstName: user?.first_name || null,
       lastName: user?.last_name || null,
       username: user?.username || null,
-      phone_number: phone_number
+      phone_number: null
+    };
+
+    try {
+      const result = await this.telegramService.requestPhoneNumber();
+      this.UserInfo.phone_number = result.phone;
+      this.telegramService.saveUserInStorage(this.UserInfo);
+    } catch (error) {
+      this.telegramService.saveUserInStorage(this.UserInfo);
     }
   }
-
 
 
   //increase cart

@@ -15,11 +15,24 @@ export class Telegram {
     // this.tg.expand();
   }
 
+
+  showBackButton() {
+    this.tg?.BackButton.show();
+  }
+
+  hideBackButton() {
+    this.tg?.BackButton.hide();
+  }
+
+  onBack(callback: () => void) {
+    this.tg?.BackButton.onClick(callback);
+  }
+
+
   // Handle all possible callback formats
   requestPhoneNumber(): Promise<{ phone: string; contact: any }> {
     return new Promise((resolve, reject) => {
-      console.log('Requesting contact...');
-      
+
       this.tg.requestContact((sent: boolean, event: any) => {
         console.log('Callback triggered sent:', sent);
         console.log('Callback event:', event);
@@ -27,14 +40,22 @@ export class Telegram {
         if (sent) {
 
           if (event && event.responseUnsafe && event.responseUnsafe.contact) {
-            const contact = event.responseUnsafe.contact;
+            const contact =
+              event?.responseUnsafe?.contact ||
+              event?.response?.contact ||
+              event?.contact ||
+              null;
             
             console.log('Contact data received:', contact);
+
+            if (contact?.phone_number) {
+              resolve({ phone: contact.phone_number, contact });
+            }
             
-            resolve({
-              phone: contact.phone_number,
-              contact: contact
-            });
+            // resolve({
+            //   phone: contact.phone_number,
+            //   contact: contact
+            // });
           } else {
             // console.error('Contact data not found');
             reject('Contact data not available in response');
@@ -63,12 +84,26 @@ export class Telegram {
   }
 
 
-  //save user info tg into storage
+  //save user info tg into local storage
   saveUserInStorage(user:any){
     if(user){
       localStorage.setItem('userInfo', this.generalService.encryptFileForLocal(user));
     } 
   }
+
+
+  //get user info tg into local storage
+  getUserInStorage(){
+    const data = this.generalService.decryptFileForLocal(localStorage.getItem('userInfo'));
+    return data ? JSON.parse(data) : null;
+  }
+
+
+  //clear user info in local storage
+  clearUserInfoFromStorage() {
+    localStorage.clear();
+  }
+
 
 
 }

@@ -2,6 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { CartService } from '../../../core/services/cart.service';
 import { PaymentMethod } from '../../../core/services/payment-method';
+import { Telegram } from '../../../core/services/telegram';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-checkout-page',
@@ -18,7 +20,9 @@ export class CheckoutPage {
 
   constructor(
     public cartService: CartService,
-    private paymentMethod: PaymentMethod
+    private paymentMethod: PaymentMethod,
+    private telegramService: Telegram,
+    private router: Router 
   ){
     
   }
@@ -28,6 +32,19 @@ export class CheckoutPage {
     this.getData();
   }
 
+
+  //show back btn in topbar mini app tg
+  showBackButton(){
+      this.telegramService.showBackButton();
+
+      this.telegramService.onBack(() => {
+        this.router.navigate(['/product-list']);
+      });
+
+  }
+
+
+  //get all data cart
   getData(){
     this.cartService.getCart().subscribe(
       (respone:any) =>{
