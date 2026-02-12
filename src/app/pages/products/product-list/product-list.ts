@@ -71,6 +71,8 @@ checkUserInfo:any;
   ngOnInit(){
     this.LoadTelegramUserInfo();
     this.hideBackButton();
+
+    this.cartService.clear();
   }
 
 
@@ -112,13 +114,15 @@ checkUserInfo:any;
   //   }
   // }
 
-   async LoadTelegramUserInfo() {
+  async LoadTelegramUserInfo() {
     this.checkUserInfo = this.telegramService.getUserInStorage();
     if (this.checkUserInfo) {
-      console.log('Loaded UserInfo from localStorage:', this.checkUserInfo);
-      this.UserInfo = this.checkUserInfo;
+      console.log('Loaded UserInfo from localStorage:', JSON.parse(this.checkUserInfo));
+      this.UserInfo = JSON.parse(this.checkUserInfo);
       return;
     }
+
+    console.log('wep app is work ')
 
     const webApp = this.telegramService.getWebApp();
     const user = webApp.initDataUnsafe?.user || null;

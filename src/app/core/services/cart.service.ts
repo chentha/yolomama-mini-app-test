@@ -59,4 +59,11 @@ export class CartService {
   }
 
 
+  // Clear all items from cart
+  clear() {
+    this.cart$.next([]);
+    console.log('Cart cleared');
+  }
+
+
 }
