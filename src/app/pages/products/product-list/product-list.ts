@@ -99,8 +99,8 @@ export class ProductList {
 
   async LoadTelegramUserInfo() {
     this.checkUserInfo = this.telegramService.getUserInStorage();
-    const checkUserTg = this.telegramService.getWebApp().initDataUnsafe?.user;
-    if (!checkUserTg) {
+    // const checkUserTg = this.telegramService.getWebApp().initDataUnsafe?.user;
+    if (this.checkUserInfo) {
       console.log('Loaded UserInfo from localStorage:', JSON.parse(this.checkUserInfo));
       this.UserInfo = JSON.parse(this.checkUserInfo);
       return;
