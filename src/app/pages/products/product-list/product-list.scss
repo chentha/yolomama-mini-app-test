@@ -20,6 +20,7 @@
 
 //card item
 .card {
+    cursor: pointer;
     border-radius: 8px;
     font-size: m.$font-size-14;
 
@@ -34,6 +35,7 @@
 
         .item-price{
             font-size: m.$font-size-14;
+            color: #535353;
         }
     }
 

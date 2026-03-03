@@ -15,6 +15,9 @@ export class Telegram {
     // this.tg.expand();
   }
 
+  getWebApp() {
+    return this.tg;
+  }
 
   showBackButton() {
     this.tg?.BackButton.show();
@@ -34,8 +37,8 @@ export class Telegram {
     return new Promise((resolve, reject) => {
 
       this.tg.requestContact((sent: boolean, event: any) => {
-        console.log('Callback triggered sent:', sent);
-        console.log('Callback event:', event);
+        // console.log('Callback triggered sent:', sent);
+        // console.log('Callback event:', event);
         
         if (sent) {
 
@@ -65,11 +68,6 @@ export class Telegram {
         }
       });
     });
-  }
-
-
-  getWebApp() {
-    return this.tg;
   }
 
   // showAlert(message: string) {

@@ -30,6 +30,7 @@ export class CheckoutPage {
   ngOnInit(){
     this.getPaymentMethod()
     this.getData();
+    this.showBackButton();
   }
 
 
@@ -60,11 +61,11 @@ export class CheckoutPage {
 
 
   totalPrice(): number {
-    return this.CartData?.reduce((total, item) => {
-      return total + (item.price * item.qty);
-    }, 0);
+    return (this.CartData ?? []).reduce(
+      (total, { price = 0, qty = 0 }) => total + (price * qty),
+      0
+    );
   }
-
 
     //increase cart
   increase(p: any) {
