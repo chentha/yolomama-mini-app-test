@@ -5,12 +5,13 @@ import { PaymentMethod } from '../../../core/services/payment-method';
 import { Telegram } from '../../../core/services/telegram';
 import { Router } from '@angular/router';
 import { Api } from '../../../core/services/api';
-import { HttpHeaders } from '@angular/common/http';
 import { Auth } from '../../../core/services/auth';
+import { Loading } from '../../../shared/components/loading/loading';
+import { OrderService } from '../../../core/services/order-service';
 
 @Component({
   selector: 'app-checkout-page',
-  imports: [CommonModule],
+  imports: [CommonModule, Loading],
   templateUrl: './checkout-page.html',
   styleUrl: './checkout-page.scss',
 })
@@ -22,7 +23,7 @@ export class CheckoutPage {
   payment_method:any;
   purchaseOrder: any;
   tmpItems:any;
-  loadingOrder = false;
+  loadingPurchase = false;
 
   constructor(
     public cartService: CartService,
@@ -30,7 +31,7 @@ export class CheckoutPage {
     private telegramService: Telegram,
     private router: Router,
     private allApi: Api,
-    private authService: Auth
+    private orderService: OrderService
   ){
     
   }
@@ -54,7 +55,7 @@ export class CheckoutPage {
 
 
   orderPurchase() {
-    this.loadingOrder = true;
+    this.loadingPurchase = true;
     const tmp_obj = {
       items: this.tmpItems,
       visit_date: new Date().toISOString().split('T')[0],
@@ -65,32 +66,19 @@ export class CheckoutPage {
       (response: any) => {
         console.log('purchase success', response);
         this.purchaseOrder = response;
+        this.loadingPurchase = false
+        this.orderService.setArray(this.purchaseOrder);
         if(this.purchaseOrder){
-          this.paymentOrder(response.id)
+          this.router.navigate(['/payment-confirm']);
         }
       },
       (err) => {
-        this.loadingOrder = false;
+        this.loadingPurchase = false
         console.log('err', err);
       }
     );
   }
 
-  paymentOrder(id:any){
-    this.allApi.createData(this.allApi.paymentOrderUrl + id + '/pay-sample/', id).subscribe(
-      (response: any) => {
-        console.log('pard success', response);
-        this.loadingOrder = false;
-        // Close Telegram Mini App
-        this.telegramService.getWebApp().close();
-        // this.purchaseOrder = response;
-      },
-      (err) => {
-        this.loadingOrder = false;
-        console.log('err', err);
-      }
-    );
-  }
 
   //get all data cart
   getData(){
@@ -122,14 +110,34 @@ export class CheckoutPage {
     //increase cart
   increase(p: any) {
     p.qty++;
+      // update tmpItems
+    const item = this.tmpItems.find((t:any) => t.ticket_type_id === p.id);
+    if (item) {
+      item.quantity = p.qty;
+    }
     this.UpdatedAllData(p);
   }
 
 
   //decrease cart
   decrease(p: any) {
-    if (p.qty > 0) p.qty--;
-     this.UpdatedAllData(p);
+    if (p.qty > 1) {
+      p.qty--;
+  
+      const item = this.tmpItems.find((t: any) => t.ticket_type_id === p.id);
+      if (item) {
+        item.quantity = p.qty;
+      }
+  
+      this.UpdatedAllData(p);
+    }
+    // if (p.qty > 0) p.qty--;
+    // const item = this.tmpItems.find((t:any) => t.ticket_type_id === p.id);
+    // if (item) {
+    //   item.quantity = p.qty;
+    // }
+
+    //  this.UpdatedAllData(p);
   }
 
   //on input in or de cart

@@ -1,3 +1,8 @@
+<app-loading
+  [isLoading]="loadingPurchase"
+  [loadingText]="'Processing...'"
+/>
+
 <div class="container mt-2">
     <div class="row justify-content-center">
         <div class="col-12 col-md-9 col-lg-6">
@@ -22,7 +27,7 @@
                         </div>
 
                         <div class="d-flex align-items-end gap-2">
-                            <button class="btn btn-light btn-sm btn-decrease" (click)="decrease(data)">-</button>
+                            <button [disabled]="data.qty === 1" class="btn btn-light btn-sm btn-decrease" (click)="decrease(data)">-</button>
 
                             <input type="number" readonly="true" class="form-control text-center qty-input" [value]="data.qty"
                                 (input)="onQtyChange($event, data)" min="0" />
@@ -84,8 +89,8 @@
         <div class="row justify-content-center">
             <div class="col-12 col-md-9 col-lg-6">
                 <div class="cart-bar">
-                    <div (click)="orderPurchase()" [class.disabled]="loadingOrder || !CartData?.length" class="btn-cart d-flex justify-content-center align-items-center px-3">
-                        <span>{{ loadingOrder ? 'Processing...' : 'Checkout' }}</span>
+                    <div (click)="orderPurchase()" [class.disabled]="loadingPurchase || !CartData?.length" class="btn-cart d-flex justify-content-center align-items-center px-3">
+                        <span>{{ loadingPurchase ? 'Processing...' : 'Checkout' }}</span>
                     </div>
                 </div>
             </div>

@@ -1,0 +1,167 @@
+ /* ── CARD ── */
+ .card {
+     background: #fff;
+     border-radius: 26px;
+     padding: 10px 22px 28px;
+     box-shadow: 0 24px 70px rgba(0, 0, 0, 0.13);
+     overflow: hidden;
+ }
+
+ /* drag handle */
+ .handle {
+     width: 36px;
+     height: 4px;
+     background: #cdd6d9;
+     border-radius: 99px;
+     margin: 10px auto 20px;
+ }
+
+ .hdr {
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     margin-bottom: 16px;
+ }
+
+ .hdr-title {
+     font-size: 18px;
+     font-weight: 700;
+     color: #1b2c32;
+     letter-spacing: -0.2px;
+ }
+
+
+ /* ── SUMMARY TEXT ── */
+ .summary-head {
+     font-size: 0.9rem;
+     color: #1b2c32;
+     line-height: 1.6;
+     margin-bottom: 4px;
+ }
+
+ .summary-head b {
+     font-weight: 700;
+ }
+
+ .summary-head .venue {
+     color: #3d5c64;
+     font-weight: 700;
+ }
+
+ .wallet-sub {
+     font-size: 0.76rem;
+     color: #7a9098;
+     line-height: 1.6;
+     margin-bottom: 18px;
+ }
+
+ /* ── TX BOX ── */
+ .tx-box {
+     background: #f3f7f8;
+     border-radius: 16px;
+     padding: 14px 15px 4px;
+     margin-bottom: 2px;
+
+     .tx-box-lbl {
+         font-size: 12px;
+         //  font-size: 0.68rem;
+         font-weight: 700;
+         text-transform: uppercase;
+         letter-spacing: 1px;
+         color: #7a9098;
+         margin-bottom: 10px;
+     }
+
+     .row {
+         display: flex;
+         justify-content: space-between;
+         align-items: center;
+         padding: 8px 0;
+         //  border-bottom: 1px solid #e3ecee;
+
+         .label {
+             font-size: 14px;
+         }
+
+         .value {
+             font-size: 15px;
+         }
+         .status-badge {
+            // display: inline-flex;
+            // align-items: center;
+            // gap: 4px;
+            padding: 4px 10px ;
+            border-radius: 15px;
+            font-size: 14px;
+            font-weight: 600;
+            // letter-spacing: 0.2px;
+          
+            // ── variants ──
+            &.pending {
+              background: #fff8e6;
+              color: #b45309;
+              border: 1px solid #fcd77a98;
+            }
+          }
+     }
+ }
+
+
+
+ .row:last-child {
+     border-bottom: none;
+     padding-bottom: 11px;
+ }
+
+
+
+
+ /* order badge */
+ .order-num {
+     background: #eef3f5;
+     border: 1px solid #d4e0e3;
+     border-radius: 7px;
+     padding: 2px 8px;
+     //  font-size: 0.82rem;
+     font-weight: 700;
+     color: #2d5460;
+     letter-spacing: 0.3px;
+ }
+
+ /* ticket pill */
+ .ticket-pill {
+     background: #fff7e6;
+     border: 1px solid #fcd77a;
+     border-radius: 20px;
+     padding: 2px 9px;
+     font-size: 0.8rem;
+     font-weight: 700;
+     color: #b45309;
+ }
+
+
+ .total-row {
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     padding: 14px 2px 16px;
+ }
+
+ .total-lbl {
+     font-size: 16px;
+     font-weight: 700;
+     color: #1b2c32;
+ }
+
+ .total-val {
+     font-size: 17px;
+     font-weight: 700;
+     color: #1b2c32;
+ }
+
+
+ .divider {
+     height: 1px;
+     background: #e9ecef;
+     margin: px 0;
+ }

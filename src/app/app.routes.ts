@@ -22,6 +22,12 @@ export const routes: Routes = [
                 // canActivate: [authGuard],
                 loadComponent: () =>
                     import('./pages/checkout/checkout-page/checkout-page').then(c => c.CheckoutPage)
+            },
+            {
+                path: 'payment-confirm',
+                // canActivate: [authGuard],
+                loadComponent: () =>
+                    import('./pages/payment-confirm/payment-confirm').then(c => c.PaymentConfirm)
             }
         ]
     }

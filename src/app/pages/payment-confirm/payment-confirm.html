@@ -1,0 +1,106 @@
+
+
+<div class="container mt-2">
+    <div class="row justify-content-center p-2">
+        <div class="col-12 col-md-9 col-lg-6">
+
+            <div id="card">
+
+                <!-- ═══ DEFAULT VIEW ═══ -->
+                <div id="defaultView">
+
+                    <div class="hdr">
+                        <span class="hdr-title">Order Confirm</span>
+                    </div>
+
+                    <p class="summary-head">
+                        You are booking <b>{{ orderData.total_tickets }} tickets</b> for <span class="venue">GoMaMaPlay</span>
+                    </p>
+                    <p class="wallet-sub">
+                        {{ formattedVisitDate }} · Payment will be processed immediately upon confirmation.
+                    </p>
+
+                    <div class="tx-box">
+                        <div class="tx-box-lbl">Transaction Summary</div>
+
+                        <div class="row mb-2">
+                            <div class="col-6 text-start label">
+                                Order
+                            </div>
+                            <div class="col-6 text-end value">
+                                <span class="order-num"> {{ orderData.order_number }} </span>
+                            </div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <div class="col-6 text-start label">
+                                Venue
+                            </div>
+                            <div class="col-6 text-end value">
+                                GoMaMaPlay
+                            </div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <div class="col-6 text-start label">
+                                Visit Date
+                            </div>
+                            <div class="col-6 text-end value">
+                                {{ formattedVisitDate }}
+                            </div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <div class="col-6 text-start label">
+                                Tickets
+                            </div>
+                            <div class="col-6 text-end value">
+                                {{ orderData.total_tickets }} Tickets
+                            </div>
+                        </div>
+
+                        <div class="row mb-2">
+                            <div class="col-6 text-start label">
+                                Status
+                            </div>
+                            <div class="col-6 text-end value">
+                                <span class="status-badge pending">{{ orderData.status }}</span>
+                            </div>
+                        </div>
+
+                        <div class="divider"></div>
+
+                        <div class="row mb-2 total-row">
+                            <div class="col-6 text-start total-lbl">
+                                Total
+                            </div>
+                            <div class="col-6 text-end total-val">
+                                <!-- $21.98 USD -->
+                                ${{ orderData.total }} {{ orderData.currency }}
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bottom Cart Bar -->
+<div class="cart-bar-wrapper">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-9 col-lg-6">
+                <div class="cart-bar">
+                    <div (click)="paymentOrder()" [class.disabled]="loadingPayment" class="btn-cart d-flex justify-content-center align-items-center px-3">
+                        <span>{{ loadingPayment ? 'Processing...' : 'Continue to Payment' }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

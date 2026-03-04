@@ -1,0 +1,82 @@
+.loading-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(15, 28, 33, 0.6);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    animation: fadeIn 0.22s ease both;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  
+  .spinner-wrap {
+    position: relative;
+    width: 62px;
+    height: 62px;
+  
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      border: 3px solid rgba(255, 255, 255, 0.12);
+    }
+  }
+  
+  .spinner {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    border-top-color: #fff;
+    border-right-color: rgba(255, 255, 255, 0.3);
+    animation: spin 0.82s cubic-bezier(0.6, 0.1, 0.4, 0.9) infinite;
+  }
+  
+  .spinner-dot {
+    position: absolute;
+    width: 9px;
+    height: 9px;
+    background: #fff;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: pdot 0.82s ease-in-out infinite;
+  }
+  
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+  
+  @keyframes pdot {
+    0%, 100% { transform: translate(-50%, -50%) scale(1);    opacity: 1;   }
+    50%       { transform: translate(-50%, -50%) scale(0.38); opacity: 0.3; }
+  }
+  
+  .loading-text {
+    color: #fff;
+    font-size: 0.9rem;
+    font-weight: 600;
+    animation: blink 1.5s ease-in-out infinite;
+  }
+  
+  .loading-sub {
+    color: rgba(255, 255, 255, 0.45);
+    font-size: 0.72rem;
+    margin-top: -8px;
+  }
+  
+  @keyframes blink {
+    0%, 100% { opacity: 1;   }
+    50%       { opacity: 0.4; }
+  }

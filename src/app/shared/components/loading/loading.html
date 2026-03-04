@@ -1,0 +1,10 @@
+<!-- LOADING OVERLAY -->
+<div *ngIf="isLoading" class="loading-overlay" id="loadingOverlay">
+    <div class="spinner-wrap">
+        <div class="spinner"></div>
+        <div class="spinner-dot"></div>
+    </div>
+    
+    <div *ngIf="loadingText" class="loading-text">{{ loadingText }}</div>
+    <!-- <div *ngIf="loadingSub" class="loading-sub">{{ loadingSub }}</div> -->
+</div>
