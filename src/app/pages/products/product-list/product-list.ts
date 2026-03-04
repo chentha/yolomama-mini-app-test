@@ -27,9 +27,7 @@ export class ProductList {
     private allApi: Api,
     private cdr: ChangeDetectorRef
   ) {
-    // this.saveUserToken();
-    const usertoken = this.telegramService.getWebApp().initData;
-    this.tgInfo = usertoken;
+    this.saveUserToken();
   }
 
   ngOnInit(){
@@ -38,14 +36,18 @@ export class ProductList {
 
     this.cartService.clear();
 
-    this.getTicketsTypes()
+    this.getTicketsTypes();
+
+    const usertoken = this.telegramService.getWebApp().initData;
+    this.tgInfo = usertoken;
+    console.log('tg info', this.tgInfo)
   }
 
 
   saveUserToken(){
   
     const usertoken = this.telegramService.getWebApp().initData;
-    this.tgInfo = usertoken;
+    alert(usertoken)
     if(usertoken){
       this.authService.setToken(usertoken)
     }
