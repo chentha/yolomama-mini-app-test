@@ -13,7 +13,7 @@ export class Auth {
   }
 
   setToken(token: any) {
-    const encryptedToken = this.generalService.encryptFileForLocal(JSON.stringify(token))
+    const encryptedToken = this.generalService.encryptFileForLocal(token);
     localStorage.setItem('token', encryptedToken);
   }
 

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -15,11 +15,17 @@ export class Api {
 
   }
 
+  ticketsTypeUrl = '/api/tickets/types/';
+  orderPurchaseUrl = '/api/orders/purchase/';
+
 
   //get all data 
+  // getAllData(url: any) {
+  //   return this.http.get(this.finalBaseApi + url)
+  // }
   getAllData(url: any) {
-    return this.http.get(this.finalBaseApi + url)
-  }
+  return this.http.get(this.finalBaseApi + url);
+}
 
   //get detail data by id 
   getDataDetailById(url: any, id: any, filter?: any) {
@@ -36,9 +42,11 @@ export class Api {
 
 
   //create data 
-  createData(url: any, data: any) {
-    return this.http.post(this.finalBaseApi + url, data);
-  }
+createData(url: any, data: any, headers?: HttpHeaders) {
+  return this.http.post(this.finalBaseApi + url, data, {
+    headers: headers // wrap in object
+  });
+}
 
 
   //edit or update data 
