@@ -84,8 +84,8 @@
         <div class="row justify-content-center">
             <div class="col-12 col-md-9 col-lg-6">
                 <div class="cart-bar">
-                    <div (click)="orderPurchase()" class="btn-cart d-flex justify-content-center align-items-center px-3">
-                        <span>Checkout</span>
+                    <div (click)="orderPurchase()" [class.disabled]="loadingOrder || !CartData?.length" class="btn-cart d-flex justify-content-center align-items-center px-3">
+                        <span>{{ loadingOrder ? 'Processing...' : 'Checkout' }}</span>
                     </div>
                 </div>
             </div>

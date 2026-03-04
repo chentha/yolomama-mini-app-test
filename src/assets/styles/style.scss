@@ -38,6 +38,11 @@
             font-weight: 500;
             cursor: pointer;
 
+            &.disabled{
+                opacity: 0.6;
+                pointer-events: none;
+            }
+
             .total-item {
                 font-size: m.$font-size-12;
                 width: 30px;

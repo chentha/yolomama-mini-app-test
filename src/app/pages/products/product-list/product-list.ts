@@ -32,9 +32,8 @@ export class ProductList {
   ngOnInit(){
     this.saveUserToken();
 
-    this.LoadTelegramUserInfo();
+    // this.LoadTelegramUserInfo();
     this.hideBackButton();
-
     this.cartService.clear();
 
     this.getTicketsTypes();

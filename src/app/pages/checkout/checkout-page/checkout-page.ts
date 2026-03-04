@@ -22,6 +22,7 @@ export class CheckoutPage {
   payment_method:any;
   purchaseOrder: any;
   tmpItems:any;
+  loadingOrder = false;
 
   constructor(
     public cartService: CartService,
@@ -53,6 +54,7 @@ export class CheckoutPage {
 
 
   orderPurchase() {
+    this.loadingOrder = true;
     const tmp_obj = {
       items: this.tmpItems,
       visit_date: new Date().toISOString().split('T')[0],
@@ -68,6 +70,7 @@ export class CheckoutPage {
         }
       },
       (err) => {
+        this.loadingOrder = false;
         console.log('err', err);
       }
     );
@@ -77,12 +80,13 @@ export class CheckoutPage {
     this.allApi.createData(this.allApi.paymentOrderUrl + id + '/pay-sample/', id).subscribe(
       (response: any) => {
         console.log('pard success', response);
-
+        this.loadingOrder = false;
         // Close Telegram Mini App
         this.telegramService.getWebApp().close();
         // this.purchaseOrder = response;
       },
       (err) => {
+        this.loadingOrder = false;
         console.log('err', err);
       }
     );
@@ -157,7 +161,7 @@ export class CheckoutPage {
       }
     }
 
-    // console.log('CartData:', this.CartData);
+    console.log('CartData:', this.CartData);
   }
 
 
