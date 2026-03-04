@@ -78,7 +78,7 @@ export class CheckoutPage {
       (response: any) => {
         console.log('pard success', response);
 
-        // ✅ Close Telegram Mini App
+        // Close Telegram Mini App
         this.telegramService.getWebApp().close();
         // this.purchaseOrder = response;
       },
