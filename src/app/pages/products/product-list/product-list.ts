@@ -31,14 +31,23 @@ export class ProductList {
   }
 
   ngOnInit(){
+    this.telegramService.getWebApp().ready();
     this.saveUserToken();
 
-    this.LoadTelegramUserInfo();
+    // this.LoadTelegramUserInfo();
     this.hideBackButton();
-
     this.cartService.clear();
 
-    this.getTicketsTypes();
+    const token = this.authService.getToken();
+    if (token) {
+      this.getTicketsTypes();
+    } else {
+      setTimeout(() => {
+        this.saveUserToken();
+        this.getTicketsTypes();
+      }, 500);
+    }
+
 
     // const usertoken = this.telegramService.getWebApp().initData;
     // this.tgInfo = usertoken;
