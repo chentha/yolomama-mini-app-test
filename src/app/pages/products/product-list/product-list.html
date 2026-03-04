@@ -34,7 +34,7 @@
                                 </button>
 
                                 <!-- input value qty -->
-                                <input type="number" class="form-control text-center qty-input" [value]="p.qty"
+                                <input type="number" readonly="true" class="form-control text-center qty-input" [value]="p.qty"
                                     (input)="onQtyChange($event, p)" min="0" (click)="$event.stopPropagation()" />
 
                                 <!-- increase value     -->

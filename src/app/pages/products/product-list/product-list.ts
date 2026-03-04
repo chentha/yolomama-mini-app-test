@@ -4,6 +4,7 @@ import { RouterLink } from '@angular/router';
 import { CartService } from '../../../core/services/cart.service';
 import { Product } from '../../../core/models/product.model';
 import { Telegram } from '../../../core/services/telegram';
+import { Auth } from '../../../core/services/auth';
 
 @Component({
   selector: 'app-product-list',
@@ -63,9 +64,10 @@ export class ProductList {
 
   constructor(
     private cartService: CartService,
-    private telegramService: Telegram
+    private telegramService: Telegram,
+    private authService: Auth
   ) {
-
+    this.saveUserToken();
   }
 
   ngOnInit(){
@@ -73,6 +75,16 @@ export class ProductList {
     this.hideBackButton();
 
     this.cartService.clear();
+  }
+
+
+  saveUserToken(){
+  
+    const usertoken = this.telegramService.getWebApp().initData;
+    if(usertoken){
+      this.authService.setToken(usertoken)
+    }
+
   }
 
 

@@ -62,3 +62,5 @@ NPM INSTALL :
     03 / Feb / 2026: npm install bootstrap
     04 / Feb / 2026: npm i @twa-dev/sdk
     06 / Feb / 2026: npm install crypto-js
+    03 / Mar / 2026: npm i crypto-js 
+

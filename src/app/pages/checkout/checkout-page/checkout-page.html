@@ -24,7 +24,7 @@
                         <div class="d-flex align-items-end gap-2">
                             <button class="btn btn-light btn-sm btn-decrease" (click)="decrease(data)">-</button>
 
-                            <input type="number" class="form-control text-center qty-input" [value]="data.qty"
+                            <input type="number" readonly="true" class="form-control text-center qty-input" [value]="data.qty"
                                 (input)="onQtyChange($event, data)" min="0" />
 
                             <button class="btn btn-light btn-sm btn-increase" (click)="increase(data)">+</button>
