@@ -53,35 +53,32 @@ export class CheckoutPage {
   }
 
 
-  // orderPurchase(){
-  //   let tmp_obj = {
-  //     "items": this.tmpItems,    
-  //     "visit_date": "2025-08-15",
-  //     "notes": "Birthday party for Sam"
-  //   }
-  //   this.allApi.createData(this.allApi.orderPurchaseUrl, tmp_obj).subscribe(
-  //     (repsones:any) =>{
-  //       console.log('purchase success', repsones);
-  //       this.purchaseOrder = repsones;
-  //     }, (err) =>{
-  //       console.log('err', err)
-  //     }
-  //   )
-  // }
-
-  // import { HttpHeaders } from '@angular/common/http';
-
   orderPurchase() {
     const tmp_obj = {
       items: this.tmpItems,
-      visit_date: "2025-08-15",
-      notes: "Birthday party for Sam"
+      visit_date: new Date().toISOString().split('T')[0],
+      notes: "Buy Tickets"
     };
 
     this.allApi.createData(this.allApi.orderPurchaseUrl, tmp_obj ).subscribe(
       (response: any) => {
         console.log('purchase success', response);
         this.purchaseOrder = response;
+        if(this.purchaseOrder){
+          this.paymentOrder(response.id)
+        }
+      },
+      (err) => {
+        console.log('err', err);
+      }
+    );
+  }
+
+  paymentOrder(id:any){
+    this.allApi.createData(this.allApi.paymentOrderUrl + id + '/pay-sample/', id).subscribe(
+      (response: any) => {
+        console.log('pard success', response);
+        // this.purchaseOrder = response;
       },
       (err) => {
         console.log('err', err);
@@ -96,7 +93,7 @@ export class CheckoutPage {
         console.log('data cart', respone);
         this.CartData = respone[0]?.product; 
         this.tmpItems = this.CartData.map(item => ({
-          id: item.id,
+          ticket_type_id: item.id,
           quantity: item.qty
         }));
 
