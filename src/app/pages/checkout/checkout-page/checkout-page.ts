@@ -19,8 +19,7 @@ export class CheckoutPage {
   TotalPrice: any;
   selectedMethod: any;
 
-   payment_method:any;
-  
+  payment_method:any;
   purchaseOrder: any;
   tmpItems:any;
 

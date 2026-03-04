@@ -5,7 +5,6 @@ import { CartService } from '../../../core/services/cart.service';
 import { Telegram } from '../../../core/services/telegram';
 import { Auth } from '../../../core/services/auth';
 import { Api } from '../../../core/services/api';
-import { HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-product-list',
@@ -31,23 +30,14 @@ export class ProductList {
   }
 
   ngOnInit(){
-    this.telegramService.getWebApp().ready();
     this.saveUserToken();
 
-    // this.LoadTelegramUserInfo();
+    this.LoadTelegramUserInfo();
     this.hideBackButton();
+
     this.cartService.clear();
 
-    const token = this.authService.getToken();
-    if (token) {
-      this.getTicketsTypes();
-    } else {
-      setTimeout(() => {
-        this.saveUserToken();
-        this.getTicketsTypes();
-      }, 500);
-    }
-
+    this.getTicketsTypes();
 
     // const usertoken = this.telegramService.getWebApp().initData;
     // this.tgInfo = usertoken;
