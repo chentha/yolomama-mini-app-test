@@ -77,6 +77,9 @@ export class CheckoutPage {
     this.allApi.createData(this.allApi.paymentOrderUrl + id + '/pay-sample/', id).subscribe(
       (response: any) => {
         console.log('pard success', response);
+
+        // ✅ Close Telegram Mini App
+        this.telegramService.getWebApp().close();
         // this.purchaseOrder = response;
       },
       (err) => {
