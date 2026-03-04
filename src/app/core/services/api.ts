@@ -42,10 +42,8 @@ export class Api {
 
 
   //create data 
-createData(url: any, data: any, headers?: HttpHeaders) {
-  return this.http.post(this.finalBaseApi + url, data, {
-    headers: headers // wrap in object
-  });
+createData(url: any, data: any) {
+  return this.http.post(this.finalBaseApi + url, data);
 }
 
 
