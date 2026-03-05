@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { Api } from '../../core/services/api';
 import { Telegram } from '../../core/services/telegram';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 // import { Loading } from '../../shared/components/loading/loading';
 import { OrderService } from '../../core/services/order-service';
 
@@ -21,6 +21,7 @@ export class PaymentConfirm {
     private allApi:Api,
     private telegramService: Telegram,
     private route: ActivatedRoute,
+    private router: Router,
     // private generalService: General,
     private orderService: OrderService
   ){
@@ -33,10 +34,21 @@ export class PaymentConfirm {
     if(this.orderData){
       this.idPurchase = this.orderData.id;
     }
-    console.log('data ', this.orderData)
+    console.log('data ', this.orderData);
+
+    this.showBackButton()
 
   }
 
+  //show back btn in topbar mini app tg
+  showBackButton(){
+      this.telegramService.showBackButton();
+
+      this.telegramService.onBack(() => {
+        this.router.navigate(['/checkout']);
+      });
+
+  }
 
 
   paymentOrder(){

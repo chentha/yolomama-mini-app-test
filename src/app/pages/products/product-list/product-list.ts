@@ -35,6 +35,7 @@ export class ProductList {
     // this.LoadTelegramUserInfo();
     this.hideBackButton();
     this.cartService.clear();
+    this.getTicketsTypes();
 
     // const usertoken = this.telegramService.getWebApp().initData;
     // this.tgInfo = usertoken;
@@ -50,7 +51,6 @@ export class ProductList {
     // alert(usertoken)
     if(usertoken){
       this.authService.setToken(usertoken);
-      this.getTicketsTypes();
     }
 
   }
