@@ -30,10 +30,8 @@ export class ProductList {
   }
 
   ngOnInit() {
-    const checkToken = this.authService.getToken();
-    if(!checkToken){
-      this.saveUserToken();
-    }
+    this.saveUserToken();
+    
     // this.LoadTelegramUserInfo();
     this.hideBackButton();
     this.cartService.clear();
@@ -46,19 +44,20 @@ export class ProductList {
 
 
   saveUserToken() {
-      // Get initData from Telegram Web App
+      // const initData = this.telegramService.getWebApp().initData;
+
+      // if(initData){
+      //   this.authService.setToken(initData);
+      // }
+
       const initData = this.telegramService.getWebApp().initData;
 
-      if (!initData) {
-        console.log('No initData available from Telegram.');
-        return; // nothing to save
+      if (initData) {
+        // Save token in memory only
+        this.authService.setToken(initData);
       }
-
-      // Save token in auth service / localStorage
-      this.authService.setToken(initData);
-      console.log('New Telegram token saved.');
-
-    }
+    
+  }
 
   //hide back btn in topbar tg
   hideBackButton() {

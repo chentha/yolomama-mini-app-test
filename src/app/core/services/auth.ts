@@ -5,27 +5,58 @@ import { General } from './general';
   providedIn: 'root',
 })
 export class Auth {
-
+  private token: string | null = null; 
   constructor(
     private generalService: General
   ){
 
   }
 
-  setToken(token: any) {
-    const encryptedToken = this.generalService.encryptFileForLocal(token);
-    localStorage.setItem('token', encryptedToken);
+    /**
+   * Save or update token in service memory
+   * @param token string
+   */
+  setToken(token: string) {
+    this.token = token;
+    console.log('Token saved in memory.');
   }
 
-  getToken(): any | null {
-    const data = localStorage.getItem('token');
-    const decryptedToken = this.generalService.decryptFileForLocal(data);
-    return decryptedToken;
+  /**
+   * Get token from service memory
+   */
+  getToken(): string | null {
+    return this.token;
   }
 
+  /**
+   * Check if token exists in memory
+   */
+  hasToken(): boolean {
+    return !!this.token;
+  }
+
+  /**
+   * Clear token from memory
+   */
   clearToken() {
-    localStorage.removeItem('token');
+    this.token = null;
+    console.log('Token cleared from memory.');
   }
+
+  // setToken(token: any) {
+  //   const encryptedToken = this.generalService.encryptFileForLocal(token);
+  //   localStorage.setItem('token', encryptedToken);
+  // }
+
+  // getToken(): any | null {
+  //   const data = localStorage.getItem('token');
+  //   const decryptedToken = this.generalService.decryptFileForLocal(data);
+  //   return decryptedToken;
+  // }
+
+  // clearToken() {
+  //   localStorage.removeItem('token');
+  // }
 
   clearStorage(){
     localStorage.clear();
