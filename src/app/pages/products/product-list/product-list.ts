@@ -45,8 +45,8 @@ export class ProductList {
 
   saveUserToken() {
 
-    const usertoken = this.telegramService.getWebApp().initData;
-    // const usertoken = 'query_id=AAG7AlRrAAAAALsCVGuSp_lG&user=%7B%22id%22%3A1800667835%2C%22first_name%22%3A%22Hour%20Chentha%22%2C%22last_name%22%3A%22-%20%E1%9E%A0%E1%9F%8A%E1%9E%BD%E1%9E%9A%20%E1%9E%85%E1%9E%B7%E1%9E%93%E1%9F%92%E1%9E%90%E1%9E%B6%22%2C%22username%22%3A%22Hour_Chentha%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%2C%22photo_url%22%3A%22https%3A%5C%2F%5C%2Ft.me%5C%2Fi%5C%2Fuserpic%5C%2F320%5C%2FWPJ2z4bxPl8diYtCXEr6rVUrCkaUI1AHAMcH3ZnHnOo.svg%22%7D&auth_date=1772609469&signature=jgBBqdy4jx4NllBsDJ5so7r5e9bl2fRvGvTnEKPX_ZxSguoDL_WNJ_gN-dT0VrmXDQjBglSGBkdLu8_60zsxAg&hash=5fb4aebcf242cad1478a697c33d5e8b557a1b9db7689865ff41a6a2d922e8b9e'
+    // const usertoken = this.telegramService.getWebApp().initData;
+    const usertoken = 'lcskCotGsIpW0MQiZWfc68vn7jA6c9e9cSFyTSguuQ9qRVSc0/u/VHX4aHKTz312KN0RgAdqkVESj8P40kt6ix64y6yR1vIrM2oyDFoLu3Hv5fD1L9oZnbMJD+tKsshui4tSLudtPeyGq4xmhDj8h6irWPvAhQh437l/kv7ws9ZH8VHvo76afunWCw3PAOAVp1Kj/kwVE1zIr5d/IojkhkV8B2DpjdunvVZ5oYVmknODd53W1E4HWryvgG5r9Ys1Pp5138Y2JLWOdbaRBL05MVioOqcqIqq12IIEFtQeWVWfMLIF3qEBQGPj5KxWfswiBcC5whPfCEHFWILw2mtkdicU3va1lfTBiWGOwj0PCsOMIogXkr3neavMIoiBOY7U5a2QY53w05oBieZIZiYH9gojXyjgZJcWY5QOQXXhQ0iEuuAeShvV7m0Un1+uMlohQQ5Lx8S8mT8RU66YuUNmCHkxEAfKstuyBxrHwJFgkEN9v7siTZeddbphw2G1sOttwF3K91rCR8hOZzK0J5vqm1P1kaIcJO/ZYvZ1t0i9tgj/UHyRSYWaa6WnYGFHp/j7sTyE6GzLyVAFJhvWRm4vIc2VPXIHpFgrGqjs2cAajShJefXbsSujC7PjG3VjOgKeyC2ep9ryQIr/H47ZT3dMR27XYM0H5oVJSp+NjJpmqU2EhKxtwEq7v3LZkVIAR+ZprL0VOVvuxxzSh+IAlFX0BaSAdXGRki14jaG1mf8/XyOpZU64H5kt5z4JIJCmN0SOUc2NNzElwJu+3nKqafkAVdfmIBcVEmsnurwxfvSFQn4dXVP7hvoMYamKL+pms0TLVeZqzWJuSVTi5Dbq4PqDD7s5CDwYp3oslwQ7THd4g2+NI5DejVTOK+akD+ZEOY3B'
     // alert(usertoken)
     if (usertoken) {
       this.authService.setToken(usertoken);
@@ -65,7 +65,7 @@ export class ProductList {
       next: (response: any) => {
         const data = response?.data || response;
         this.AllData = data?.map((item: any) => ({ ...item, qty: 0 }));
-        // this.cdr.detectChanges();
+        this.cdr.detectChanges();
         console.log('all data', this.AllData);
       },
       error: (err) => {
