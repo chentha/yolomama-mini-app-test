@@ -51,6 +51,7 @@ export class ProductList {
       // }
 
       const initData = this.telegramService.getWebApp().initData;
+      console.log('init data', initData)
 
       if (initData) {
         // Save token in memory only
