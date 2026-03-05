@@ -4,7 +4,7 @@
 
             <div class="row">
                 
-                @for (p of AllData; track p) {
+                @for (p of AllData; track p.id) {
                     <div class="col-6 col-sm-4 col-md-4 col-lg-4 p-2 position-relative">
 
                         @if (p.qty > 0) {

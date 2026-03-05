@@ -12,7 +12,7 @@ export class Telegram {
     private generalService: General
   ) {
     this.tg.ready();
-    // this.tg.expand();
+    this.tg.expand();
   }
 
   getWebApp() {

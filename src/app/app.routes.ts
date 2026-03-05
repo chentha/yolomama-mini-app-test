@@ -28,6 +28,12 @@ export const routes: Routes = [
                 // canActivate: [authGuard],
                 loadComponent: () =>
                     import('./pages/payment-confirm/payment-confirm').then(c => c.PaymentConfirm)
+            },
+            {
+                path: 'payment-completed',
+                // canActivate: [authGuard],
+                loadComponent: () =>
+                    import('./pages/payment-completed/payment-completed').then(c => c.PaymentCompleted)
             }
         ]
     }

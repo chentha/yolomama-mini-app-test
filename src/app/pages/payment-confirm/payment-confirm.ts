@@ -5,10 +5,11 @@ import { Telegram } from '../../core/services/telegram';
 import { ActivatedRoute, Router } from '@angular/router';
 // import { Loading } from '../../shared/components/loading/loading';
 import { OrderService } from '../../core/services/order-service';
+import { Loading } from '../../shared/components/loading/loading';
 
 @Component({
   selector: 'app-payment-confirm',
-  imports: [CommonModule],
+  imports: [CommonModule, Loading],
   templateUrl: './payment-confirm.html',
   styleUrl: './payment-confirm.scss',
 })
@@ -36,28 +37,28 @@ export class PaymentConfirm {
     }
     console.log('data ', this.orderData);
 
-    this.showBackButton()
+    // this.showBackButton()
 
   }
 
   //show back btn in topbar mini app tg
-  showBackButton(){
-      this.telegramService.showBackButton();
+  // showBackButton(){
+  //     this.telegramService.showBackButton();
 
-      this.telegramService.onBack(() => {
-        this.router.navigate(['/checkout']);
-      });
-
-  }
+  //     this.telegramService.onBack(() => {
+  //       this.router.navigate(['/checkout']);
+  //     });
+  // }
 
 
   paymentOrder(){
     this.loadingPayment = true;
-    this.telegramService.getWebApp().close();
+    // this.telegramService.getWebApp().close();
     this.allApi.createData(this.allApi.paymentOrderUrl + this.idPurchase + '/pay-sample/', this.idPurchase).subscribe(
       (response: any) => {
         console.log('pard success', response);
         this.loadingPayment = false;
+        this.router.navigate(['/payment-completed']); 
       },
       (err) => {
         console.log('err', err);
