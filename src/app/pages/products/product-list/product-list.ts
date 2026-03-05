@@ -30,8 +30,10 @@ export class ProductList {
   }
 
   ngOnInit() {
-    this.saveUserToken();
-
+    const checkToken = this.authService.getToken();
+    if(!checkToken){
+      this.saveUserToken();
+    }
     // this.LoadTelegramUserInfo();
     this.hideBackButton();
     this.cartService.clear();
@@ -44,15 +46,19 @@ export class ProductList {
 
 
   saveUserToken() {
+      // Get initData from Telegram Web App
+      const initData = this.telegramService.getWebApp().initData;
 
-    const usertoken = this.telegramService.getWebApp().initData;
-    // const usertoken = 'lcskCotGsIpW0MQiZWfc68vn7jA6c9e9cSFyTSguuQ9qRVSc0/u/VHX4aHKTz312KN0RgAdqkVESj8P40kt6ix64y6yR1vIrM2oyDFoLu3Hv5fD1L9oZnbMJD+tKsshui4tSLudtPeyGq4xmhDj8h6irWPvAhQh437l/kv7ws9ZH8VHvo76afunWCw3PAOAVp1Kj/kwVE1zIr5d/IojkhkV8B2DpjdunvVZ5oYVmknODd53W1E4HWryvgG5r9Ys1Pp5138Y2JLWOdbaRBL05MVioOqcqIqq12IIEFtQeWVWfMLIF3qEBQGPj5KxWfswiBcC5whPfCEHFWILw2mtkdicU3va1lfTBiWGOwj0PCsOMIogXkr3neavMIoiBOY7U5a2QY53w05oBieZIZiYH9gojXyjgZJcWY5QOQXXhQ0iEuuAeShvV7m0Un1+uMlohQQ5Lx8S8mT8RU66YuUNmCHkxEAfKstuyBxrHwJFgkEN9v7siTZeddbphw2G1sOttwF3K91rCR8hOZzK0J5vqm1P1kaIcJO/ZYvZ1t0i9tgj/UHyRSYWaa6WnYGFHp/j7sTyE6GzLyVAFJhvWRm4vIc2VPXIHpFgrGqjs2cAajShJefXbsSujC7PjG3VjOgKeyC2ep9ryQIr/H47ZT3dMR27XYM0H5oVJSp+NjJpmqU2EhKxtwEq7v3LZkVIAR+ZprL0VOVvuxxzSh+IAlFX0BaSAdXGRki14jaG1mf8/XyOpZU64H5kt5z4JIJCmN0SOUc2NNzElwJu+3nKqafkAVdfmIBcVEmsnurwxfvSFQn4dXVP7hvoMYamKL+pms0TLVeZqzWJuSVTi5Dbq4PqDD7s5CDwYp3oslwQ7THd4g2+NI5DejVTOK+akD+ZEOY3B'
-    // alert(usertoken)
-    if (usertoken) {
-      this.authService.setToken(usertoken);
+      if (!initData) {
+        console.log('No initData available from Telegram.');
+        return; // nothing to save
+      }
+
+      // Save token in auth service / localStorage
+      this.authService.setToken(initData);
+      console.log('New Telegram token saved.');
+
     }
-
-  }
 
   //hide back btn in topbar tg
   hideBackButton() {

@@ -38,8 +38,15 @@ export class PaymentConfirm {
     console.log('data ', this.orderData);
 
     // this.showBackButton()
+    this.hideBackButton()
 
   }
+
+  //hide back btn in topbar tg
+  hideBackButton() {
+    this.telegramService.hideBackButton();
+  }
+
 
   //show back btn in topbar mini app tg
   // showBackButton(){

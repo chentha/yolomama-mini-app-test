@@ -32,7 +32,13 @@ export class PaymentCompleted {
     // console.log('data ', this.orderData);
 
     // this.showBackButton()
+    this.hideBackButton()
 
+  }
+
+   //hide back btn in topbar tg
+  hideBackButton() {
+    this.telegramService.hideBackButton();
   }
 
   closeApp(){
