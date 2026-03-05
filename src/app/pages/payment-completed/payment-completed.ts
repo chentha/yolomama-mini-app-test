@@ -43,7 +43,7 @@ export class PaymentCompleted {
 
   closeApp(){
     this.telegramService.getWebApp().close();
-    this.authService.clearStorage()
+    // this.authService.clearStorage()
   }
 
 
