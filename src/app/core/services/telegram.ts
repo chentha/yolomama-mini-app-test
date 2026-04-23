@@ -74,35 +74,35 @@ export class Telegram {
   //   this.tg.showAlert(message);
   // }
 
-  logAllUserData() {
+  // logAllUserData() {
     
-    return {
-      user: this.tg.initDataUnsafe.user,
-    };
-  }
+  //   return {
+  //     user: this.tg.initDataUnsafe.user,
+  //   };
+  // }
 
 
-  //save user info tg into local storage
-  saveUserInStorage(user:any){
-    if(user){
-      const encrypted = this.generalService.encryptFileForLocal(JSON.stringify(user))
-      localStorage.setItem('userInfo', encrypted);
-    } 
-  }
+  // //save user info tg into local storage
+  // saveUserInStorage(user:any){
+  //   if(user){
+  //     const encrypted = this.generalService.encryptFileForLocal(JSON.stringify(user))
+  //     localStorage.setItem('userInfo', encrypted);
+  //   } 
+  // }
 
 
-  //get user info tg into local storage
-  getUserInStorage(){
-    const data = localStorage.getItem('userInfo');
-    const decrypted = this.generalService.decryptFileForLocal(data);
-    return decrypted;
-  }
+  // //get user info tg into local storage
+  // getUserInStorage(){
+  //   const data = localStorage.getItem('userInfo');
+  //   const decrypted = this.generalService.decryptFileForLocal(data);
+  //   return decrypted;
+  // }
 
 
-  //clear user info in local storage
-  clearUserInfoFromStorage() {
-    localStorage.clear();
-  }
+  // //clear user info in local storage
+  // clearUserInfoFromStorage() {
+  //   localStorage.clear();
+  // }
 
 
 

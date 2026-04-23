@@ -28,7 +28,7 @@ export class CheckoutPage {
   loadingPurchase = false;
 
   // Currency state
-  currency = signal<Currency>('USD');
+  currency:any = 'USD';
   exchangeRate = signal(4000);
 
   // Plain properties — recalculated via recalcTotals()
@@ -53,7 +53,10 @@ export class CheckoutPage {
   ngOnInit() {
     this.getData();
     this.showBackButton();
+    this.cartService.getCurrency().subscribe(c => this.currency = c);
   }
+
+
 
   // Single source of truth for both totals
   private recalcTotals(): void {
@@ -101,7 +104,7 @@ export class CheckoutPage {
           // totalPrice: this.totalPrice,  
           totalPriceUSD: this.totalPrice,
           totalPriceKHR: this.formatKhr(this.totalKhr),
-          currency: this.currency(),
+          currency: this.currency,
         };
         this.router.navigate([
           '/payment-method',
@@ -174,7 +177,8 @@ export class CheckoutPage {
   }
 
   selectCurrency(c: Currency) {
-    this.currency.set(c);
+    this.cartService.setCurrency(c);
+    this.currency = c;
   }
 
   // update qty product

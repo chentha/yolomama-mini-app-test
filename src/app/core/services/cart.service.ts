@@ -6,6 +6,7 @@ import { Product } from '../models/product.model';
 @Injectable({ providedIn: 'root' })
 export class CartService {
   private cart$ = new BehaviorSubject<CartItem[]>([]);
+  private currency$ = new BehaviorSubject<string>('USD');
 
   // Get reactive cart stream
   getCart() {
@@ -110,4 +111,21 @@ export class CartService {
     this.cart$.next([]);
     console.log('Cart cleared');
   }
+
+
+  // ========================
+  // CURRENCY
+  // ========================
+  setCurrency(currency: string) {
+    this.currency$.next(currency.toUpperCase().trim());
+  }
+
+  getCurrency() {
+    return this.currency$.asObservable();
+  }
+
+  clearCurrency() {
+    this.currency$.next('USD');
+  }
+
 }

@@ -112,9 +112,9 @@
       <div class="currency-section">
         <div class="currency-label">CURRENCY TO PAY</div>
         <div class="currency-toggle">
-          <button type="button" class="currency-btn" [class.active]="currency() === 'USD'"
+          <button type="button" class="currency-btn" [class.active]="currency === 'USD'"
             (click)="selectCurrency('USD')">USD</button>
-          <button type="button" class="currency-btn" [class.active]="currency() === 'KHR'"
+          <button type="button" class="currency-btn" [class.active]="currency === 'KHR'"
             (click)="selectCurrency('KHR')">KHR</button>
         </div>
       </div>
