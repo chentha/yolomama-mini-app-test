@@ -1,0 +1,62 @@
+<div class="container">
+    <div class="row justify-content-center ">
+        <div class="col-12 col-md-9 col-lg-6 p-0">
+            <div class="phone">
+ 
+                <div class="aba-header">
+                    <button type="button" class="back-btn" aria-label="Back">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="15 18 9 12 15 6"></polyline>
+                        </svg>
+                    </button>
+
+                    <div class="aba-brand">
+                        <span class="aba-logo">ABA<sup>*</sup></span>
+                        <span class="aba-title">Scan QR</span>
+                    </div>
+
+                    <div></div>
+                </div>
+
+                <!-- Body -->
+                <div class="aba-body">
+
+                    <div class="merchant-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 9l1.5-4.5h15L21 9"></path>
+                            <path d="M4 9v11h16V9"></path>
+                            <path d="M3 9h18"></path>
+                            <path d="M9 13h6v7H9z"></path>
+                        </svg>
+                    </div>
+
+                    <h1 class="merchant-name">Shopping Store</h1>
+
+                    <div class="amount-row">
+                        <span class="amount-value">{{ totalPrice }}</span>
+                        <span class="amount-currency">USD</span>
+                    </div>
+
+                    <button type="button" class="account-picker">
+                        <span class="pick-label">Pay from:</span>
+                        <span class="pick-value">000 123 569 | USD</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+
+                </div>
+
+                <!-- CTA -->
+                <div class="pay-bar">
+                    <button (click)="paymentOrder()" [disabled]="loadingPayment" type="button" class="btn-pay-now" id="payNow">PAY NOW</button>
+                </div>
+                <div class="safe-area-fill"></div>
+            </div>
+
+        </div>
+    </div>
+</div>

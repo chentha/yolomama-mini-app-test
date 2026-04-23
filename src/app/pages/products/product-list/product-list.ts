@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { CartService } from '../../../core/services/cart.service';
 import { Telegram } from '../../../core/services/telegram';
 import { Auth } from '../../../core/services/auth';
@@ -8,7 +8,7 @@ import { Api } from '../../../core/services/api';
 
 @Component({
   selector: 'app-product-list',
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule],
   templateUrl: './product-list.html',
   styleUrl: './product-list.scss',
 })
@@ -24,18 +24,20 @@ export class ProductList {
     private telegramService: Telegram,
     private authService: Auth,
     private allApi: Api,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private router: Router
   ) {
 
   }
 
   ngOnInit() {
-    this.saveUserToken();
+    // this.saveUserToken();
     
     // this.LoadTelegramUserInfo();
     this.hideBackButton();
-    this.cartService.clear();
+    // this.cartService.clear();
     this.getTicketsTypes();
+    console.log('data added', this.cartService.getCart())
 
     // const usertoken = this.telegramService.getWebApp().initData;
     // this.tgInfo = usertoken;
@@ -44,13 +46,9 @@ export class ProductList {
 
 
   saveUserToken() {
+
       // const initData = this.telegramService.getWebApp().initData;
-
-      // if(initData){
-      //   this.authService.setToken(initData);
-      // }
-
-      const initData = this.telegramService.getWebApp().initData;
+      const initData = 'query_id=AAG7AlRrAAAAALsCVGv-AJVU&user=%7B%22id%22%3A1800667835%2C%22first_name%22%3A%22Hour%20Chentha%22%2C%22last_name%22%3A%22-%20%E1%9E%A0%E1%9F%8A%E1%9E%BD%E1%9E%9A%20%E1%9E%85%E1%9E%B7%E1%9E%93%E1%9F%92%E1%9E%90%E1%9E%B6%22%2C%22username%22%3A%22Hour_Chentha%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%2C%22photo_url%22%3A%22https%3A%5C%2F%5C%2Ft.me%5C%2Fi%5C%2Fuserpic%5C%2F320%5C%2FWPJ2z4bxPl8diYtCXEr6rVUrCkaUI1AHAMcH3ZnHnOo.svg%22%7D&auth_date=1776929011&signature=ciXt6TalFN2l-yp3x6-AV-RVywgY9YatKzIOslZ8PF3tkG83AyGg_GUoEJOAdY4IFpgxx0JgosvnetC7lMG1AQ&hash=e0ee056f33b8155599713c59e07e96553535627e958695ee3da0140b58c3a559'; 
       console.log('init data', initData)
 
       if (initData) {
@@ -70,32 +68,23 @@ export class ProductList {
     this.allApi.getAllData(this.allApi.ticketsTypeUrl).subscribe({
       next: (response: any) => {
         const data = response?.data || response;
-        this.AllData = data?.map((item: any) => ({ ...item, qty: 0 }));
-        this.cdr.detectChanges();
-        console.log('all data', this.AllData);
+        const currentCart = this.cartService.getSnapshot();
+
+        this.AllData = data.map((item: any) => {
+          // If this product is already in the cart, restore its qty
+          const cartItem = currentCart.find(c => c.product.id === item.id);
+          return { ...item, qty: cartItem ? cartItem.qty : 0 };
+        });
+          // this.AllData = data?.map((item: any) => ({ ...item, qty: 0 }));
+          this.cdr.detectChanges();
+          console.log('all data', this.AllData);
       },
       error: (err) => {
-        console.log('API error:', err); // ← check what error on reload
-        // is it 401 Unauthorized? → token issue
-        // is it network error?    → timing issue
+        console.log('API error:', err); 
       }
     });
   }
 
-
-  // checkExistingData(){
-  //  this.cartService.getCart().subscribe(
-  //     (respone:any) =>{
-  //       console.log('data cart', respone);
-  //       const ExistingData = respone[0]?.product.length > 0;
-  //       if(ExistingData){
-
-  //       }else{
-
-  //       }
-  //     }
-  //   )
-  // }
 
 
   // async LoadTelegramUserInfo() {
@@ -133,58 +122,77 @@ export class ProductList {
   //increase cart
   increase(p: any) {
     p.qty++;
+    this.cartService.setItemQty(p, p.qty);
     this.cdr.detectChanges();
-    // this.UpdatedAllData(p);
   }
 
 
   //decrease cart
   decrease(p: any) {
     if (p.qty > 0) p.qty--;
+    this.cartService.setItemQty(p, p.qty); 
     this.cdr.detectChanges();
-    //  this.UpdatedAllData(p);
   }
 
   //on input in or de cart
-  onQtyChange(event: Event, p: any) {
-    const value = Number((event.target as HTMLInputElement).value);
-    console.log('qty number', p)
+  // onQtyChange(event: Event, p: any) {
+  //   const value = Number((event.target as HTMLInputElement).value);
+  //   console.log('qty number', p)
 
-    if (isNaN(value) || value < 0) {
-      p.qty = 0;
-    } else {
-      p.qty = value;
-    }
-  }
+  //   if (isNaN(value) || value < 0) {
+  //     p.qty = 0;
+  //   } else {
+  //     p.qty = value;
+  //   }
+  // }
 
 
   //update data added
-  UpdatedAllData(data: any) {
-    const index = this.AllData.findIndex(item => item.id === data.id);
+  // UpdatedAllData(data: any) {
+  //   const index = this.AllData.findIndex(item => item.id === data.id);
 
-    if (data.qty > 0) {
-      if (index === -1) {
-        this.AllData.push({ ...data });
-      } else {
-        this.AllData[index].qty = data.qty;
-      }
-    } else {
-      if (index !== -1) {
-        this.AllData.splice(index, 1);
-      }
-    }
+  //   if (data.qty > 0) {
+  //     if (index === -1) {
+  //       this.AllData.push({ ...data });
+  //     } else {
+  //       this.AllData[index].qty = data.qty;
+  //     }
+  //   } else {
+  //     if (index !== -1) {
+  //       this.AllData.splice(index, 1);
+  //     }
+  //   }
 
-    console.log('AllData:', this.AllData);
-  }
-
+  //   console.log('AllData:', this.AllData);
+  // }
 
 
   //add data to cart
-  AddCart() {
-    const selected = this.AllData.filter(item => item.qty > 0);
-    this.cartService.add(selected);
-  }
+  // AddCart() {
+  //   const selected = this.AllData.filter(item => item.qty > 0);
+ 
+  //   if (selected.length === 0) {
+  //     console.log('No items selected');
+  //     return;
+  //   }
+ 
+  //   this.cartService.addMany(selected);
+  //   console.log('Added to cart:', selected);
+ 
+  //   // Reset local quantities after adding
+  //   this.AllData = this.AllData.map(item => ({ ...item, qty: 0 }));
+  //   this.cdr.detectChanges();
+  // }
 
+  AddCart() {
+    if (this.cartService.count() === 0) {
+      console.log('No items selected');
+      return;
+    }
+    
+    this.router.navigate(['/checkout']);
+  }
+ 
 
   get totalItems() {
     return this.AllData.reduce((a, b) => a + b.qty, 0);
@@ -193,4 +201,5 @@ export class ProductList {
   get totalPrice() {
     return this.AllData.reduce((a, b) => a + (b.qty * b.price), 0);
   }
+  
 }

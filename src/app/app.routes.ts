@@ -6,6 +6,7 @@ export const routes: Routes = [
         path: '',
         loadComponent: () =>
         import('./layouts/home/home').then(c => c.Home),
+        // canActivate: [authGuard],
         children: [
             {
                 path: '',
@@ -19,21 +20,38 @@ export const routes: Routes = [
             },
             {
                 path: 'checkout',
-                // canActivate: [authGuard],
+                canActivate: [authGuard],
                 loadComponent: () =>
                     import('./pages/checkout/checkout-page/checkout-page').then(c => c.CheckoutPage)
             },
+            // {
+            //     path: 'payment-confirm/:id',
+            //     canActivate: [authGuard],
+            //     loadComponent: () =>
+            //         import('./pages/payment-confirm/payment-confirm').then(c => c.PaymentConfirm)
+            // },
+            // {
+            //     path: 'payment-confirm',
+            //     redirectTo: 'product-list',
+            //     pathMatch: 'full'
+            // },
+            // {
+            //     path: 'payment-completed',
+            //     canActivate: [authGuard],
+            //     loadComponent: () =>
+            //         import('./pages/payment-completed/payment-completed').then(c => c.PaymentCompleted)
+            // },
             {
-                path: 'payment-confirm',
+                path: 'payment-method/:data',
                 // canActivate: [authGuard],
                 loadComponent: () =>
-                    import('./pages/payment-confirm/payment-confirm').then(c => c.PaymentConfirm)
+                    import('./pages/payment-method/payment-method').then(c => c.PaymentMethod)
             },
             {
-                path: 'payment-completed',
+                path: 'aba-payment/:data',
                 // canActivate: [authGuard],
                 loadComponent: () =>
-                    import('./pages/payment-completed/payment-completed').then(c => c.PaymentCompleted)
+                    import('./pages/aba-payment/aba-payment').then(c => c.AbaPayment)
             }
         ]
     }

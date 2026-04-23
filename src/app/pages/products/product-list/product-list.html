@@ -35,8 +35,7 @@
                                     </button>
 
                                     <!-- input value qty -->
-                                    <input type="number" readonly="true" class="form-control text-center qty-input" [value]="p.qty"
-                                        (input)="onQtyChange($event, p)" min="0" (click)="$event.stopPropagation()" />
+                                    <input type="number" readonly="true" class="form-control text-center qty-input" [value]="p.qty" min="0" (click)="$event.stopPropagation()" />
 
                                     <!-- increase value     -->
                                     <button class="btn btn-light btn-sm btn-increase">
@@ -64,8 +63,7 @@
         <div class="row justify-content-center">
             <div class="col-12 col-md-9 col-lg-6">
                 <div class="cart-bar">
-                    <div (click)="AddCart()" routerLink="/checkout"
-                        class="btn-cart d-flex justify-content-between align-items-center px-3">
+                    <div (click)="AddCart()" class="btn-cart d-flex justify-content-between align-items-center px-3">
 
                         <span class="total-item">
                             {{ totalItems }}

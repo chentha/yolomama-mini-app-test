@@ -1,0 +1,229 @@
+ :host {
+     display: block;
+     height: 100vh;
+     height: 100dvh; 
+ }
+
+ .container,
+ .container>.row,
+ .container>.row>[class*="col-"] {
+     height: 100%;
+ }
+
+ .container {
+    padding: 0;
+ }
+
+ .phone {
+     // width: 100%;
+     height: 100%;
+     // max-width: 390px;
+     min-height: 100vh;
+     background: #155d7e;
+     color: #fff;
+     display: flex;
+     flex-direction: column;
+     position: relative;
+     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+ }
+
+ /* ----- Header ----- */
+ .aba-header {
+     display: grid;
+     grid-template-columns: 40px 1fr 40px;
+     align-items: center;
+     padding: 14px 12px;
+ }
+
+ .back-btn {
+     width: 40px;
+     height: 40px;
+     background: transparent;
+     border: none;
+     color: #fff;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     cursor: pointer;
+     border-radius: 8px;
+     transition: background 0.15s ease;
+ }
+
+//  .back-btn:hover {
+//      background: rgba(255, 255, 255, 0.08);
+//  }
+
+ .aba-brand {
+     display: flex;
+     align-items: center;
+    //  justify-content: center;
+     gap: 8px;
+     font-weight: 700;
+ }
+
+ .aba-logo {
+     font-size: 16px;
+     letter-spacing: 0.5px;
+ }
+
+ .aba-logo sup {
+     font-size: 10px;
+     color: #ef4a4a;
+     margin-left: 1px;
+ }
+
+ .aba-title {
+     font-size: 15px;
+     font-weight: 600;
+     opacity: 0.95;
+ }
+
+ /* ----- Body ----- */
+ .aba-body {
+     flex: 1;
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     padding: 20px 24px 30px;
+     gap: 14px;
+ }
+
+ .merchant-icon {
+     width: 88px;
+     height: 88px;
+     border-radius: 50%;
+     border: 2px solid rgba(255, 255, 255, 0.5);
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     color: #fff;
+     margin-top: 8px;
+ }
+
+ .merchant-name {
+     margin: 4px 0 0;
+     font-size: 17px;
+     font-weight: 500;
+     color: #fff;
+     text-align: center;
+     letter-spacing: 0.3px;
+ }
+
+ .amount-row {
+     display: flex;
+     align-items: flex-start;
+     gap: 4px;
+     margin-top: 2px;
+ }
+
+ .amount-value {
+     font-size: 45px;
+     font-weight: 300;
+     color: #fff;
+     line-height: 1;
+     letter-spacing: -1px;
+     font-variant-numeric: tabular-nums;
+ }
+
+ .amount-currency {
+     font-size: 14px;
+     font-weight: 500;
+     color: #fff;
+     opacity: 0.85;
+     margin-top: 8px;
+     letter-spacing: 0.5px;
+ }
+
+ .account-picker {
+     display: inline-flex;
+     align-items: center;
+     gap: 6px;
+     background: transparent;
+     border: none;
+     color: #fff;
+     font-size: 13px;
+     padding: 6px 8px;
+     cursor: pointer;
+     border-radius: 6px;
+     font-family: inherit;
+     transition: background 0.15s ease;
+ }
+
+ .account-picker:hover {
+     background: rgba(255, 255, 255, 0.06);
+ }
+
+ .account-picker .pick-label {
+     opacity: 0.7;
+     font-weight: 400;
+ }
+
+ .account-picker .pick-value {
+     color: #7fd4ff;
+     font-weight: 500;
+ }
+
+ .account-picker svg {
+     color: #7fd4ff;
+     margin-left: 2px;
+ }
+
+ /* ----- Pay bar ----- */
+ .pay-bar {
+    //  padding: 12px 16px 16px;
+    flex-shrink: 0;
+    background: #ee7e7e;
+    padding-bottom: calc(env(safe-area-inset-bottom, 0) + 20px); 
+ }
+
+ .btn-pay-now {
+     width: 100%;
+     height: 56px;
+     background: #ef4a4a;
+     color: #fff;
+     border: none;
+    //  border-radius: 4px;
+     font-size: 14px;
+     font-weight: 600;
+     letter-spacing: 1.5px;
+     text-transform: uppercase;
+     cursor: pointer;
+     font-family: inherit;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     gap: 8px;
+     transition: background 0.15s ease, transform 0.1s ease, opacity 0.15s ease;
+ }
+
+ .btn-pay-now:hover:not(:disabled) {
+     background: #d93838;
+ }
+
+ .btn-pay-now:active:not(:disabled) {
+     transform: scale(0.99);
+ }
+
+ .btn-pay-now:disabled {
+     opacity: 0.6;
+     cursor: not-allowed;
+ }
+
+ .spinner {
+     width: 18px;
+     height: 18px;
+     border: 2px solid rgba(255, 255, 255, 0.4);
+     border-top-color: #fff;
+     border-radius: 50%;
+     animation: spin 0.7s linear infinite;
+ }
+
+ .safe-area-fill {
+  height: env(safe-area-inset-bottom, 0);
+  background: green;                  // red extends under home indicator
+}
+ @keyframes spin {
+     to {
+         transform: rotate(360deg);
+     }
+ }

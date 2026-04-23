@@ -16,6 +16,7 @@ import { Loading } from '../../shared/components/loading/loading';
 export class PaymentConfirm {
   idPurchase:any;
   orderData:any;
+  checkOrderData:any;
   loadingPayment = false;
 
   constructor(
@@ -31,11 +32,15 @@ export class PaymentConfirm {
 
   ngOnInit(){
   
-    this.orderData = this.orderService.getArray();
-    if(this.orderData){
-      this.idPurchase = this.orderData.id;
+    this.idPurchase = this.route.snapshot.paramMap.get('id');
+    this.checkOrderData = this.orderService.getArray();
+    console.log('check order detail', this.checkOrderData, this.idPurchase)
+
+    if (this.checkOrderData && this.checkOrderData.id === this.idPurchase) {
+      this.orderData = this.checkOrderData; 
+    } else {
+      this.getOrderDetail();
     }
-    console.log('data ', this.orderData);
 
     // this.showBackButton()
     this.hideBackButton()
@@ -56,6 +61,21 @@ export class PaymentConfirm {
   //       this.router.navigate(['/checkout']);
   //     });
   // }
+
+  getOrderDetail(){
+    this.allApi.getDataDetailById(this.allApi.paymentOrderUrl, this.idPurchase).subscribe(
+      (response: any) => {
+        console.log('data order detail', response);
+        this.loadingPayment = false;
+        this.orderData = response;
+        this.orderService.setArray(response);
+      },
+      (err) => {
+        console.log('err', err);
+        this.loadingPayment = false;
+      }
+    )
+  }
 
 
   paymentOrder(){
