@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Telegram } from '../../core/services/telegram';
+import { General } from '../../core/services/general';
 
 @Component({
   selector: 'app-payment-method',
@@ -9,9 +10,6 @@ import { Telegram } from '../../core/services/telegram';
   styleUrl: './payment-method.scss',
 })
 export class PaymentMethod {
-  dataPurchase:any;
-  selectedMethodId: any;
-  loading = false;
   paymentMethods = [
     {
       id: '1',
@@ -27,12 +25,26 @@ export class PaymentMethod {
     },
   ];
 
+  dataPurchase:any;
+  selectedMethodId: any;
+  loading = false;
+  totalPriceUSD:any = 0;
+  totalPriceKHR:any = 0;
+  Currency:any = 'USD';
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private telegramService: Telegram,
+    private allFunctions: General
   ) {
-
+    this.dataPurchase = JSON.parse(this.allFunctions.decryptFileForLocal(this.route.snapshot.paramMap.get('data')) || '' );
+    if(this.dataPurchase){
+      this.totalPriceUSD = this.dataPurchase.totalPriceUSD;
+      this.totalPriceKHR = this.dataPurchase.totalPriceKHR;
+      this.Currency = this.dataPurchase.currency;
+    }
+    console.log('data purchase', this.dataPurchase)
   }
 
 

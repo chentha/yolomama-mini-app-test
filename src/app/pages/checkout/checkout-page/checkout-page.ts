@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, effect, signal } from '@angular/core';
 import { CartService } from '../../../core/services/cart.service';
 import { PaymentMethod } from '../../../core/services/payment-method';
 import { Telegram } from '../../../core/services/telegram';
@@ -10,6 +10,8 @@ import { OrderService } from '../../../core/services/order-service';
 import { CartItem } from '../../../core/models/cart-item.model';
 import { General } from '../../../core/services/general';
 
+type Currency = 'USD' | 'KHR';
+
 @Component({
   selector: 'app-checkout-page',
   imports: [CommonModule, Loading],
@@ -18,7 +20,6 @@ import { General } from '../../../core/services/general';
 })
 export class CheckoutPage {
   CartData: any[] = [];
-  TotalPrice: any;
   selectedMethod: any;
 
   payment_method: any;
@@ -26,37 +27,52 @@ export class CheckoutPage {
   tmpItems: any;
   loadingPurchase = false;
 
+  // Currency state
+  currency = signal<Currency>('USD');
+  exchangeRate = signal(4000);
+
+  // Plain properties — recalculated via recalcTotals()
+  totalPrice = 0;
+  totalKhr = 0;
+
   constructor(
     public cartService: CartService,
-    private paymentMethod: PaymentMethod,
     private telegramService: Telegram,
     private router: Router,
     private allApi: Api,
     private orderService: OrderService,
     private allFunctions: General
   ) {
-
+    // Recalc whenever the exchange rate signal changes
+    effect(() => {
+      this.exchangeRate(); // register dependency
+      this.recalcTotals();
+    });
   }
 
   ngOnInit() {
-    // this.getPaymentMethod()
     this.getData();
     this.showBackButton();
   }
 
+  // Single source of truth for both totals
+  private recalcTotals(): void {
+    this.totalPrice = (this.CartData ?? []).reduce(
+      (total, { price = 0, qty = 0 }) => total + (Number(price) * qty),
+      0
+    );
+    this.totalKhr = Math.round(this.totalPrice * this.exchangeRate());
+  }
 
-  //show back btn in topbar mini app tg
+  // show back btn in topbar mini app tg
   showBackButton() {
     this.telegramService.showBackButton();
-
     this.telegramService.onBack(() => {
       this.router.navigate(['/product-list']);
     });
-
   }
 
-
-  //format time duration from mins to h and m
+  // format time duration from mins to h and m
   formatDuration(mins: number): string {
     if (!mins) return '';
     const h = Math.floor(mins / 60);
@@ -78,26 +94,28 @@ export class CheckoutPage {
       (response: any) => {
         console.log('purchase success', response);
         this.purchaseOrder = response;
-        this.loadingPurchase = false
+        this.loadingPurchase = false;
         this.orderService.setArray(this.purchaseOrder);
         const data = {
           id: this.purchaseOrder.id,
-          totalPrice: this.totalPrice(),
-        }
-        this.router.navigate(['/payment-method', this.allFunctions.encryptFileForLocal(JSON.stringify(data))]);
-        // if (this.purchaseOrder) {
-        //   this.router.navigate(['/payment-confirm', this.purchaseOrder.id]);
-        // }
+          // totalPrice: this.totalPrice,  
+          totalPriceUSD: this.totalPrice,
+          totalPriceKHR: this.formatKhr(this.totalKhr),
+          currency: this.currency(),
+        };
+        this.router.navigate([
+          '/payment-method',
+          this.allFunctions.encryptFileForLocal(JSON.stringify(data))
+        ]);
       },
       (err) => {
-        this.loadingPurchase = false
+        this.loadingPurchase = false;
         console.log('err', err);
       }
     );
   }
 
-
-  //get all data cart
+  // get all data cart
   getData() {
     this.cartService.getCart().subscribe((cartItems: CartItem[]) => {
       console.log('cart items', cartItems);
@@ -111,26 +129,22 @@ export class CheckoutPage {
         ticket_type_id: item.id,
         quantity: item.qty
       }));
-      
-      console.log('tmpItems', this.tmpItems)
+
+      console.log('tmpItems', this.tmpItems);
+
+      this.recalcTotals();   // recalc after cart loads
     });
   }
 
-  totalPrice(): number {
-    return (this.CartData ?? []).reduce(
-      (total, { price = 0, qty = 0 }) => total + (price * qty),
-      0
-    );
-  }
-
-  //increase cart
+  // increase cart
   increase(p: any) {
     p.qty++;
     this.updateCart(p);
 
-    // keep tmpItems in sync for order payload
     const item = this.tmpItems.find((t: any) => t.ticket_type_id === p.id);
     if (item) item.quantity = p.qty;
+
+    this.recalcTotals();   // recalc after qty change
   }
 
   decrease(p: any) {
@@ -140,65 +154,31 @@ export class CheckoutPage {
 
       const item = this.tmpItems.find((t: any) => t.ticket_type_id === p.id);
       if (item) item.quantity = p.qty;
+
+      this.recalcTotals();   // recalc after qty change
     }
   }
 
-  //on input in or de cart
+  // on input in or de cart
   onQtyChange(event: Event, p: any) {
     const value = Number((event.target as HTMLInputElement).value);
-    console.log('qty number', p)
+    console.log('qty number', p);
 
-    if (isNaN(value) || value < 0) {
-      p.qty = 0;
-    } else {
-      p.qty = value;
-    }
+    p.qty = isNaN(value) || value < 0 ? 0 : value;
+
+    this.recalcTotals();   // recalc after manual input
   }
 
+  formatKhr(amount: number): string {
+    return amount.toLocaleString('en-US');
+  }
 
-  //update data added
-  // UpdatedAllData(data: any) {
-  //   const index = this.CartData.findIndex(item => item.id === data.id);
+  selectCurrency(c: Currency) {
+    this.currency.set(c);
+  }
 
-  //   if (data.qty > 0) {
-  //     if (index === -1) {
-  //       this.CartData.push({ ...data });
-  //     } else {
-  //       this.CartData[index].qty = data.qty;
-  //     }
-  //   } else {
-  //     if (index !== -1) {
-  //       this.CartData.splice(index, 1);
-  //     }
-  //   }
-
-  //   console.log('CartData:', this.CartData);
-  // }
-
-
-  //update qty product
+  // update qty product
   updateCart(data: any) {
     this.cartService.updateQty(data.id, data.qty);
   }
-
-
-
-
-  // getPaymentMethod() {
-  //   this.payment_method = this.paymentMethod.getMethods();
-  //   console.log('payment method', this.payment_method)
-  // }
-
-
-  // selectPaymentMethod(method: any) {
-  //   this.selectedMethod = method;
-  // }
-
-  // get totalItems() {
-  //   return this.products.reduce((a, b) => a + b.qty, 0);
-  // }
-
-  // get totalPrice() {
-  //   return this.products.reduce((a, b) => a + (b.qty * b.price), 0);
-  // }
 }

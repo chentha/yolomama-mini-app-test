@@ -21,9 +21,11 @@ export class AbaPayment {
     private telegramService: Telegram,
     private allFunctions: General
   ) {
-    this.dataPurchase = JSON.parse(this.allFunctions.decryptFileForLocal(this.route.snapshot.paramMap.get('data')) || '');
-    this.totalPrice = this.dataPurchase.totalPrice;
-    console.log('data purchase', this.totalPrice, this.dataPurchase)
+    this.dataPurchase = JSON.parse(this.allFunctions.decryptFileForLocal(this.route.snapshot.paramMap.get('data')) || '' );
+    if(this.dataPurchase){
+      this.totalPrice = this.dataPurchase.totalPriceUSD;
+    }
+    console.log('data purchase', this.dataPurchase)
   }
 
   ngOnInit(){

@@ -31,7 +31,7 @@ export class ProductList {
   }
 
   ngOnInit() {
-    // this.saveUserToken();
+    this.saveUserToken();
     
     // this.LoadTelegramUserInfo();
     this.hideBackButton();
@@ -48,7 +48,7 @@ export class ProductList {
   saveUserToken() {
 
       // const initData = this.telegramService.getWebApp().initData;
-      const initData = 'query_id=AAG7AlRrAAAAALsCVGv-AJVU&user=%7B%22id%22%3A1800667835%2C%22first_name%22%3A%22Hour%20Chentha%22%2C%22last_name%22%3A%22-%20%E1%9E%A0%E1%9F%8A%E1%9E%BD%E1%9E%9A%20%E1%9E%85%E1%9E%B7%E1%9E%93%E1%9F%92%E1%9E%90%E1%9E%B6%22%2C%22username%22%3A%22Hour_Chentha%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%2C%22photo_url%22%3A%22https%3A%5C%2F%5C%2Ft.me%5C%2Fi%5C%2Fuserpic%5C%2F320%5C%2FWPJ2z4bxPl8diYtCXEr6rVUrCkaUI1AHAMcH3ZnHnOo.svg%22%7D&auth_date=1776929011&signature=ciXt6TalFN2l-yp3x6-AV-RVywgY9YatKzIOslZ8PF3tkG83AyGg_GUoEJOAdY4IFpgxx0JgosvnetC7lMG1AQ&hash=e0ee056f33b8155599713c59e07e96553535627e958695ee3da0140b58c3a559'; 
+      const initData = 'query_id=AAG7AlRrAAAAALsCVGtdi9Tt&user=%7B%22id%22%3A1800667835%2C%22first_name%22%3A%22Hour%20Chentha%22%2C%22last_name%22%3A%22-%20%E1%9E%A0%E1%9F%8A%E1%9E%BD%E1%9E%9A%20%E1%9E%85%E1%9E%B7%E1%9E%93%E1%9F%92%E1%9E%90%E1%9E%B6%22%2C%22username%22%3A%22Hour_Chentha%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%2C%22photo_url%22%3A%22https%3A%5C%2F%5C%2Ft.me%5C%2Fi%5C%2Fuserpic%5C%2F320%5C%2FWPJ2z4bxPl8diYtCXEr6rVUrCkaUI1AHAMcH3ZnHnOo.svg%22%7D&auth_date=1776937313&signature=2HrlLAkRJ4N3yDgc8hZZjwO8XxLX1IsoOHoz8z7NyNSOTrzjoejvhnskcxewnb7c1f1vhifBp5qJ2RweWhQqBg&hash=6c7cab26491e338d98a7f3de06bfde5e94762ccadf71e8d745ce884d6d0a2a92'; 
       console.log('init data', initData)
 
       if (initData) {
