@@ -95,65 +95,145 @@
 
 
 
+.amount-display {
+  display: flex;
+  // align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  // background: linear-gradient(135deg, #ecf7f1c6 0%, #ffffff 65%);
+  // gap: 16px;
+  // padding: 24px 16px;
+  // border: 1px solid m.$gray-300;
+  // border-radius: 12px;
+  padding-top: 30px;
+  // margin-bottom: 10px;
+  font-variant-numeric: tabular-nums;
 
-.amount-hero {
-  position: relative;
-  // background: linear-gradient(135deg, #ecf7f1 0%, #ffffff 65%);
-  border: 1px solid m.$gray-300;
-  border-radius: 12px;
-  padding: 18px 20px 20px;
-  margin-bottom: 10px;
-  overflow: hidden;
-
-  /* soft radial glow top-right */
-  &::before {
-    content: '';
-    position: absolute;
-    top: -40px;
-    right: -40px;
-    width: 140px;
-    height: 140px;
-    border-radius: 50%;
-    // background: radial-gradient(circle, rgba(58, 155, 107, 0.08) 0%, transparent 70%);
-    pointer-events: none;
-  }
+  // &::before {
+  //   content: '';
+  //   position: absolute;
+  //   top: -40px;
+  //   right: -40px;
+  //   width: 140px;
+  //   height: 140px;
+  //   border-radius: 50%;
+  //   background: radial-gradient(circle, rgba(58, 155, 107, 0.08) 0%, transparent 70%);
+  //   pointer-events: none;
+  // }
 }
 
 .amount-label {
-  font-size: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  // color: #9ca3af;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  // text-align: right;
+  line-height: 1.4;
+  margin-bottom: 0;
+  // max-width: 80px;
+}
+
+// .amount-divider {
+//   width: 1px;
+//   height: 42px;
+//   background: m.$gray-300;
+//   flex-shrink: 0;
+// }
+
+.amount-value-wrap {
+  // display: flex;
+  // align-items: baseline;
+  gap: 6px;
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.amount-value {
+  font-size: 40px;
+  font-weight: 700;
+  // color: #111827;
+  margin-right: 5px;
+  line-height: 1;
+  // letter-spacing: -1px;
+}
+
+.amount-currency {
+  font-size: 14px;
   font-weight: 700;
   color: m.$primary-btn;
-  letter-spacing: 1.2px;
+  letter-spacing: 1.5px;
   text-transform: uppercase;
-  margin-bottom: 10px;
-  position: relative;
+
+  // &.is-riel {
+  //   font-size: 12px;
+  //   font-weight: 700;
+  //   letter-spacing: 0;
+  //   text-transform: none;
+  // }
 }
 
-.amount-primary {
-  display: flex;
-  align-items: baseline;
-  gap: 6px;
-  color: #111827;
-  font-variant-numeric: tabular-nums;
 
-  .val {
-    font-size: 25px;
-    font-weight: 700;
-    letter-spacing: -1px;
-    line-height: 1;
-  }
 
-  .code {
-    font-size: 12px;
-    font-weight: 600;
-    color: #6b7280;
-    letter-spacing: 0.5px;
-  }
-}
+// .amount-hero {
+//   position: relative;
+//   background: linear-gradient(135deg, #ecf7f1 0%, #ffffff 65%);
+//   border: 1px solid m.$gray-300;
+//   border-radius: 12px;
+//   padding: 18px 20px 20px;
+//   margin-bottom: 10px;
+//   overflow: hidden;
 
-.amount-secondary {
-  font-size: 12px;
-  font-weight: 600;
-  color: #f59e0b;
-  font-variant-numeric: tabular-nums;
-}
+//   /* soft radial glow top-right */
+//   &::before {
+//     content: '';
+//     position: absolute;
+//     top: -40px;
+//     right: -40px;
+//     width: 140px;
+//     height: 140px;
+//     border-radius: 50%;
+//     background: radial-gradient(circle, rgba(58, 155, 107, 0.08) 0%, transparent 70%);
+//     pointer-events: none;
+//   }
+// }
+
+// .amount-label {
+//   font-size: 12px;
+//   font-weight: 700;
+//   color: m.$primary-btn;
+//   letter-spacing: 1.2px;
+//   text-transform: uppercase;
+//   margin-bottom: 10px;
+//   position: relative;
+// }
+
+// .amount-primary {
+//   display: flex;
+//   align-items: baseline;
+//   gap: 6px;
+//   color: #111827;
+//   font-variant-numeric: tabular-nums;
+
+//   .val {
+//     font-size: 25px;
+//     font-weight: 700;
+//     letter-spacing: -1px;
+//     line-height: 1;
+//   }
+
+//   .code {
+//     font-size: 12px;
+//     font-weight: 600;
+//     color: #6b7280;
+//     letter-spacing: 0.5px;
+//   }
+// }
+
+// .amount-secondary {
+//   font-size: 12px;
+//   font-weight: 600;
+//   color: #f59e0b;
+//   font-variant-numeric: tabular-nums;
+// }

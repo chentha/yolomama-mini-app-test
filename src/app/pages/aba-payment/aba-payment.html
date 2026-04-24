@@ -35,13 +35,19 @@
                     <h1 class="merchant-name">Gomama Play Epass</h1>
 
                     <div class="amount-row">
-                        <span class="amount-value">{{ totalPrice }}</span>
-                        <span class="amount-currency">USD</span>
+                        <span class="amount-value">
+                            @if (Currency === 'KHR') {
+                                {{ totalPriceKHR }} 
+                            } @else {   
+                                {{ totalPriceUSD | number:'1.2-2' }} 
+                            }
+                        </span>
+                        <span class="amount-currency">{{ Currency }}</span>
                     </div>
 
                     <button type="button" class="account-picker">
                         <span class="pick-label">Pay from:</span>
-                        <span class="pick-value">000 123 569 | USD</span>
+                        <span class="pick-value">000 123 569 | {{ Currency }}</span>
                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
                             stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                             <polyline points="6 9 12 15 18 9"></polyline>

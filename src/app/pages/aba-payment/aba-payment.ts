@@ -3,17 +3,20 @@ import { ActivatedRoute } from '@angular/router';
 import { Api } from '../../core/services/api';
 import { Telegram } from '../../core/services/telegram';
 import { General } from '../../core/services/general';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-aba-payment',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './aba-payment.html',
   styleUrl: './aba-payment.scss',
 })
 export class AbaPayment {
   loadingPayment = false;
   dataPurchase:any;
-  totalPrice:any = 0;
+  totalPriceUSD:any = 0;
+  totalPriceKHR:any = 0;
+  Currency = 'USD';
 
   constructor(
     private allApi: Api,
@@ -23,7 +26,9 @@ export class AbaPayment {
   ) {
     this.dataPurchase = JSON.parse(this.allFunctions.decryptFileForLocal(this.route.snapshot.paramMap.get('data')) || '' );
     if(this.dataPurchase){
-      this.totalPrice = this.dataPurchase.totalPriceUSD;
+      this.totalPriceUSD = this.dataPurchase.totalPriceUSD;
+      this.totalPriceKHR = this.dataPurchase.totalPriceKHR;
+      this.Currency = this.dataPurchase.currency || 'USD';
     }
     console.log('data purchase', this.dataPurchase)
   }

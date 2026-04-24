@@ -2,10 +2,11 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Telegram } from '../../core/services/telegram';
 import { General } from '../../core/services/general';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-payment-method',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './payment-method.html',
   styleUrl: './payment-method.scss',
 })
