@@ -5,6 +5,7 @@ import { CartService } from '../../../core/services/cart.service';
 import { Telegram } from '../../../core/services/telegram';
 import { Auth } from '../../../core/services/auth';
 import { Api } from '../../../core/services/api';
+import { General } from '../../../core/services/general';
 
 @Component({
   selector: 'app-product-list',
@@ -25,7 +26,8 @@ export class ProductList {
     private authService: Auth,
     private allApi: Api,
     private cdr: ChangeDetectorRef,
-    private router: Router
+    private router: Router,
+    public allFunction: General
   ) {
 
   }

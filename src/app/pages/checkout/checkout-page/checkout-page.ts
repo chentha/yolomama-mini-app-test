@@ -41,7 +41,7 @@ export class CheckoutPage {
     private router: Router,
     private allApi: Api,
     private orderService: OrderService,
-    private allFunctions: General
+    public allFunctions: General
   ) {
     // Recalc whenever the exchange rate signal changes
     effect(() => {
@@ -75,15 +75,6 @@ export class CheckoutPage {
     });
   }
 
-  // format time duration from mins to h and m
-  formatDuration(mins: number): string {
-    if (!mins) return '';
-    const h = Math.floor(mins / 60);
-    const m = mins % 60;
-    if (h === 0) return `${m}m`;
-    if (m === 0) return `${h}h`;
-    return `${h}h ${m}m`;
-  }
 
   orderPurchase() {
     this.loadingPurchase = true;

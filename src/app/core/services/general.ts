@@ -6,6 +6,16 @@ import { environment } from '../../../environments/environment';
   providedIn: 'root',
 })
 export class General {
+
+
+  formatDuration(mins: number): string {
+    if (!mins) return '';
+    const h = Math.floor(mins / 60);
+    const m = mins % 60;
+    if (h === 0) return `${m}m`;
+    if (m === 0) return `${h}h`;
+    return `${h}h ${m}m`;
+  }
   
   //The get method is use for encrypt the value.
   encryptFileForLocal(value:any) {

@@ -5,7 +5,91 @@
             <div class="row">
                 
                 @for (p of AllData; track p.id) {
-                    <div class="col-6 col-sm-4 col-md-4 col-lg-4 p-2 position-relative">
+                     <div class="col-6 col-sm-4 col-md-4 col-lg-4 p-2 position-relative">
+
+                        <article class="ticket-card" [class.has-qty]="p.qty > 0" (click)="increase(p)">
+
+                            <!-- Image with overlay badges -->
+                            <div class="ticket-image-wrap">
+                                <img class="ticket-image" [src]="p.image" [alt]="p.name" />
+
+                                @if (p.age_group) {
+                                <span class="age-badge age-{{ p.age_group }}">{{ p.age_group }}</span>
+                                }
+
+                                @if (p.discount_percentage > 0) {
+                                <span class="discount-ribbon">−{{ p.discount_percentage }}%</span>
+                                }
+
+                                @if (p.qty > 0) {
+                                <span class="qty-badge">{{ p.qty }}</span>
+                                }
+                            </div>
+
+                            <!-- Body -->
+                            <div class="ticket-body">
+                                <h6 class="ticket-name">{{ p.name }}</h6>
+
+                                <div class="ticket-meta">
+                                @if (p.duration_minutes) {
+                                    <span class="meta-pill">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11"
+                                        viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="12" cy="12" r="10"/>
+                                        <polyline points="12 6 12 12 16 14"/>
+                                    </svg>
+                                    {{ allFunction.formatDuration(p.duration_minutes) }}
+                                    </span>
+                                }
+                                @if (p.valid_from && p.valid_until) {
+                                    <span class="meta-pill">
+                                    {{ (p.valid_from | slice:0:5) }}-{{ (p.valid_until | slice:0:5) }}
+                                    </span>
+                                }
+                                </div>
+
+                                <div class="ticket-price-row">
+                                <span class="ticket-price">${{ p.price | number:'1.2-2' }}</span>
+                                @if (p.compare_at_price) {
+                                    <span class="ticket-compare">${{ p.compare_at_price | number:'1.2-2' }}</span>
+                                }
+                                </div>
+
+                                <div class="qty-controls" (click)="$event.stopPropagation()">
+                                <button type="button"
+                                        class="qty-btn"
+                                        [disabled]="p.qty === 0"
+                                        (click)="decrease(p); $event.stopPropagation()"
+                                        aria-label="Decrease">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                        viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="5" y1="12" x2="19" y2="12"/>
+                                    </svg>
+                                </button>
+
+                                <span class="qty-number">{{ p.qty }}</span>
+
+                                <button type="button"
+                                        class="qty-btn qty-add"
+                                        [disabled]="p.qty >= p.max_per_order"
+                                        (click)="increase(p); $event.stopPropagation()"
+                                        aria-label="Increase">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
+                                        viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="12" y1="5" x2="12" y2="19"/>
+                                    <line x1="5" y1="12" x2="19" y2="12"/>
+                                    </svg>
+                                </button>
+                                </div>
+                            </div>
+
+                        </article>
+
+                    </div>
+                    <!-- <div class="col-6 col-sm-4 col-md-4 col-lg-4 p-2 position-relative">
 
                         @if (p.qty > 0) {
                             <div class="count-item">
@@ -17,27 +101,21 @@
                             <img [src]="p.image" class="card-img-top p-2" alt="" />
 
                             <div class="card-body">
-                                <!-- title of product -->
                                 <h6 class="item-name mb-1">
                                     {{ p.name }}
                                 </h6>
 
-                                <!-- price product -->
                                 <p class="item-price mb-2">
                                     ${{ p.price }}
                                 </p>
 
-                                <!-- qty of product -->
                                 <div class="d-flex align-items-center gap-2">
-                                    <!-- decrease value -->
                                     <button class="btn btn-light btn-sm btn-decrease" (click)="decrease(p); $event.stopPropagation()">
                                         -
                                     </button>
 
-                                    <!-- input value qty -->
                                     <input type="number" readonly="true" class="form-control text-center qty-input" [value]="p.qty" min="0" (click)="$event.stopPropagation()" />
 
-                                    <!-- increase value     -->
                                     <button class="btn btn-light btn-sm btn-increase">
                                         +
                                     </button>
@@ -45,7 +123,7 @@
                             </div>
                         </div>
 
-                    </div>
+                    </div> -->
                 }
 
             </div>
