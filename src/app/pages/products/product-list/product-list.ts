@@ -123,9 +123,12 @@ export class ProductList {
 
   //increase cart
   increase(p: any) {
-    p.qty++;
-    this.cartService.setItemQty(p, p.qty);
-    this.cdr.detectChanges();
+    if(p.qty < p.max_per_order){
+      p.qty++;
+      this.cartService.setItemQty(p, p.qty);
+      this.cdr.detectChanges();
+    }
+    
   }
 
 
