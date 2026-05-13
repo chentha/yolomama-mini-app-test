@@ -5,9 +5,9 @@
             <div class="row">
                 
                 @for (p of AllData; track p.id) {
-                     <div class="col-6 col-sm-4 col-md-4 col-lg-4 p-2 position-relative">
+                     <div class="col-6 col-sm-4 col-md-4 col-lg-4 p-2 ">
 
-                        <article class="ticket-card" [class.has-qty]="p.qty > 0" (click)="increase(p)">
+                        <div class="ticket-card" [class.has-qty]="p.qty > 0" (click)="increase(p)">
 
                             <!-- Image with overlay badges -->
                             <div class="ticket-image-wrap">
@@ -86,7 +86,7 @@
                                 </div>
                             </div>
 
-                        </article>
+                        </div>
 
                     </div>
                     <!-- <div class="col-6 col-sm-4 col-md-4 col-lg-4 p-2 position-relative">
