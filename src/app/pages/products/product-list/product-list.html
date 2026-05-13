@@ -5,8 +5,12 @@
             <div class="row">
                 
                 @for (p of AllData; track p.id) {
-                     <div class="col-6 col-sm-4 col-md-4 col-lg-4 p-2 ">
+                     <div class="col-6 col-sm-4 col-md-4 col-lg-4 p-2 position-relative">
 
+                        @if (p.qty > 0) {
+                        <span class="qty-badge">{{ p.qty }}</span>
+                        }
+                        
                         <div class="ticket-card" [class.has-qty]="p.qty > 0" (click)="increase(p)">
 
                             <!-- Image with overlay badges -->
@@ -21,9 +25,9 @@
                                 <span class="discount-ribbon">-{{ p.discount_percentage }}%</span>
                                 }
 
-                                @if (p.qty > 0) {
+                                <!-- @if (p.qty > 0) {
                                 <span class="qty-badge">{{ p.qty }}</span>
-                                }
+                                } -->
                             </div>
 
                             <!-- Body -->
