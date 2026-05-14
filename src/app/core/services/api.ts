@@ -15,9 +15,9 @@ export class Api {
 
   }
 
-  ticketsTypeUrl = '/api/tickets/types/';
-  orderPurchaseUrl = '/api/orders/purchase/';
-  paymentOrderUrl = '/api/orders/';
+  ticketsTypeUrl = '/api/online_sale/tickets/types/';
+  orderPurchaseUrl = '/api/online_sale/orders/purchase/';
+  paymentOrderUrl = '/api/online_sale/orders/';
 
 
   //get all data 
