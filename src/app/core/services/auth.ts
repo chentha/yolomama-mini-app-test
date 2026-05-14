@@ -30,13 +30,14 @@ export class Auth {
   }
 
   setToken(token: string) {
-    sessionStorage.setItem('token', token)
+    sessionStorage.setItem('token', this.generalService.encryptFileForLocal(token))
     console.log('Token saved in memory.');
   }
 
 
   getToken(): string | null {
-    return sessionStorage.getItem('token');
+    const token = this.generalService.decryptFileForLocal(sessionStorage.getItem('token'))
+    return token;
   }
 
 
