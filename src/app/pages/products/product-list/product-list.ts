@@ -33,7 +33,7 @@ export class ProductList {
   }
 
   ngOnInit() {
-    this.saveUserToken();
+    // this.saveUserToken(); 
     
     // this.LoadTelegramUserInfo();
     this.hideBackButton();
