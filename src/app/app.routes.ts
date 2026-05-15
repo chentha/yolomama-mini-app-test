@@ -10,8 +10,8 @@ export const routes: Routes = [
     },
     {
         path: '',
-        canActivate: [telegramGuard],         
-        canActivateChild: [telegramGuard],  
+        // canActivate: [telegramGuard],         
+        // canActivateChild: [telegramGuard],  
         loadComponent: () =>
         import('./layouts/home/home').then(c => c.Home),
         // canActivate: [authGuard],

@@ -120,6 +120,7 @@ export class CheckoutPage {
 
       this.tmpItems = this.CartData.map((item: any) => ({
         ticket_type_id: item.id,
+        effective_price: item.effective_price,
         quantity: item.qty
       }));
 
