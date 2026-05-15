@@ -11,9 +11,16 @@ export class Auth {
     private generalService: General,
     private telegramService: Telegram
   ){
-
+    console.log('platform ', this.telegramService.getWebApp().platform)
   }
 
+
+  //check session tg 
+  isOpenedInTelegram(): boolean{
+    const platform = this.telegramService.getWebApp().platform;
+    
+    return platform !== 'unknown' && !!this.getToken();
+  }
 
   initToken(){
     const existingToken = this.getToken();

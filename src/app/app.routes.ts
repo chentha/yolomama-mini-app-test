@@ -1,9 +1,17 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './core/guards/auth-guard';
+import { telegramGuard } from './core/guards/telegram-guard';
 
 export const routes: Routes = [
     {
+        path: 'forbidden',
+        loadComponent: () =>
+        import('./pages/forbidden-page/forbidden-page').then(c => c.ForbiddenPage),
+    },
+    {
         path: '',
+        canActivate: [telegramGuard],         
+        canActivateChild: [telegramGuard],  
         loadComponent: () =>
         import('./layouts/home/home').then(c => c.Home),
         // canActivate: [authGuard],
@@ -52,7 +60,17 @@ export const routes: Routes = [
                 // canActivate: [authGuard],
                 loadComponent: () =>
                     import('./pages/aba-payment/aba-payment').then(c => c.AbaPayment)
+            },
+             {
+                path: 'forbidden',
+                // canActivate: [authGuard],
+                loadComponent: () =>
+                    import('./pages/forbidden-page/forbidden-page').then(c => c.ForbiddenPage)
             }
         ]
-    }
+    },
+    {
+        path: '**',
+        redirectTo: 'forbidden',
+    },
 ];

@@ -50,7 +50,7 @@ export class ProductList {
   saveUserToken() {
 
       // const initData = this.telegramService.getWebApp().initData;
-      const initData = 'query_id=AAG7AlRrAAAAALsCVGt71IDP&user=%7B%22id%22%3A1800667835%2C%22first_name%22%3A%22Hour%20Chentha%22%2C%22last_name%22%3A%22-%20%E1%9E%A0%E1%9F%8A%E1%9E%BD%E1%9E%9A%20%E1%9E%85%E1%9E%B7%E1%9E%93%E1%9F%92%E1%9E%90%E1%9E%B6%22%2C%22username%22%3A%22Hour_Chentha%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%2C%22photo_url%22%3A%22https%3A%5C%2F%5C%2Ft.me%5C%2Fi%5C%2Fuserpic%5C%2F320%5C%2FWPJ2z4bxPl8diYtCXEr6rVUrCkaUI1AHAMcH3ZnHnOo.svg%22%7D&auth_date=1778747339&signature=ESl6FCmFZBxB6o5FLKNF15PkOZox-9SEOtPuvMFbxvllRK0778iZ0S4BFjWYostO3tIRPm5rN7OrWDn2wFgvCw&hash=d5d8cd01dadabb9b00df13560b96accb1b0e30f35b09cb16546827ec2e910cec'; 
+      const initData = 'query_id=AAG7AlRrAAAAALsCVGtT15T-&user=%7B%22id%22%3A1800667835%2C%22first_name%22%3A%22Hour%20Chentha%22%2C%22last_name%22%3A%22-%20%E1%9E%A0%E1%9F%8A%E1%9E%BD%E1%9E%9A%20%E1%9E%85%E1%9E%B7%E1%9E%93%E1%9F%92%E1%9E%90%E1%9E%B6%22%2C%22username%22%3A%22Hour_Chentha%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%2C%22photo_url%22%3A%22https%3A%5C%2F%5C%2Ft.me%5C%2Fi%5C%2Fuserpic%5C%2F320%5C%2FWPJ2z4bxPl8diYtCXEr6rVUrCkaUI1AHAMcH3ZnHnOo.svg%22%7D&auth_date=1777003439&signature=PLpgE0fhC17w2HzSCaqb3j3BN1gMFv2xIs6J5pWjw_Hx_sOfgXbkCTJz0gcU0VYu5xlyuhuHfScxg2q1DRDKDg&hash=65fbc0029b65fd2d75562ee876e978e1979030dc847f36a09803f0449846c0dd'; 
       console.log('init data', initData)
 
       if (initData) {
@@ -123,12 +123,12 @@ export class ProductList {
 
   //increase cart
   increase(p: any) {
-    if(p.qty < p.max_per_order){
+    // p.qty++;
+    // if(p.qty < p.max_per_order){
       p.qty++;
       this.cartService.setItemQty(p, p.qty);
       this.cdr.detectChanges();
-    }
-    
+    // }
   }
 
 
@@ -204,7 +204,8 @@ export class ProductList {
   }
 
   get totalPrice() {
-    return this.AllData.reduce((a, b) => a + (b.qty * b.price), 0);
+    return this.AllData.reduce((a, b) => a + (b.qty * b.effective_price), 0);
   }
+
   
 }

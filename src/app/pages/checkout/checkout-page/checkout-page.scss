@@ -37,8 +37,8 @@
   gap: 12px;
 
   .image-box {
-    width: 130px;
-    height: 130px;
+    width: 110px;
+    height: 100px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -50,27 +50,28 @@
     height: 100%;
     object-fit: contain;
   }
-
-  .price-wrap {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2px;
-  }
-
-  .item-price {
-    font-size: 19px;
-    font-weight: 700;
-    color: #f59e0b;
-    letter-spacing: 0.2px;
-  }
-
   .compare-price {
     font-size: 12px;
     color: #9ca3af;
     text-decoration: line-through;
   }
 }
+
+
+  .price-wrap {
+    // display: flex;
+    // flex-direction: column;
+    // align-items: center;
+    // gap: 2px;
+      .item-price {
+        font-size: 18px;
+        font-weight: 700;
+        color: #f59e0b;
+        letter-spacing: 0.2px;
+      }
+  }
+
+
 
 .item-details {
   display: flex;
@@ -95,56 +96,56 @@
   }
 }
 
-.age-badge {
-  flex-shrink: 0;
-  padding: 2px 8px;
-  border-radius: 999px;
-  font-size: 10px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  line-height: 1.4;
+// .age-badge {
+//   flex-shrink: 0;
+//   padding: 2px 8px;
+//   border-radius: 999px;
+//   font-size: 10px;
+//   font-weight: 600;
+//   text-transform: uppercase;
+//   letter-spacing: 0.5px;
+//   line-height: 1.4;
 
-  &.age-adult {
-    background: #e0e7ff;
-    color: #4338ca;
-  }
+//   &.age-adult {
+//     background: #e0e7ff;
+//     color: #4338ca;
+//   }
 
-  &.age-child {
-    background: #fef3c7;
-    color: #b45309;
-  }
+//   &.age-child {
+//     background: #fef3c7;
+//     color: #b45309;
+//   }
 
-  &.age-senior {
-    background: #dcfce7;
-    color: #15803d;
-  }
+//   &.age-senior {
+//     background: #dcfce7;
+//     color: #15803d;
+//   }
 
-  &.age-family {
-    background: #fce7f3;
-    color: #be185d;
-  }
+//   &.age-family {
+//     background: #fce7f3;
+//     color: #be185d;
+//   }
 
-  &.age-infant {
-    background: #e0f2fe;
-    color: #0369a1;
-  }
+//   &.age-infant {
+//     background: #e0f2fe;
+//     color: #0369a1;
+//   }
 
-  &.age-student {
-    background: #ede9fe;
-    color: #6d28d9;
-  }
+//   &.age-student {
+//     background: #ede9fe;
+//     color: #6d28d9;
+//   }
 
-  &.age-group {
-    background: #ccfbf1;
-    color: #0f766e;
-  }
+//   &.age-group {
+//     background: #ccfbf1;
+//     color: #0f766e;
+//   }
 
-  &.age-vip {
-    background: #fef2c6;
-    color: #92400e;
-  }
-}
+//   &.age-vip {
+//     background: #fef2c6;
+//     color: #92400e;
+//   }
+// }
 
 .meta-row {
   display: flex;
@@ -168,28 +169,28 @@
   }
 }
 
-.includes-list {
-  list-style: none;
-  margin: 2px 0 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
+// .includes-list {
+//   list-style: none;
+//   margin: 2px 0 0;
+//   padding: 0;
+//   display: flex;
+//   flex-direction: column;
+//   gap: 4px;
 
-  li {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 12px;
-    color: #374151;
-    line-height: 1.35;
+//   li {
+//     display: flex;
+//     align-items: center;
+//     gap: 6px;
+//     font-size: 12px;
+//     color: #374151;
+//     line-height: 1.35;
 
-    svg {
-      flex-shrink: 0;
-      color: #10b981;
-    }
-  }
-}
+//     svg {
+//       flex-shrink: 0;
+//       color: #10b981;
+//     }
+//   }
+// }
 
 .bottom-row {
   display: flex;

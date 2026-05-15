@@ -61,7 +61,7 @@ export class CheckoutPage {
   // Single source of truth for both totals
   private recalcTotals(): void {
     this.totalPrice = (this.CartData ?? []).reduce(
-      (total, { price = 0, qty = 0 }) => total + (Number(price) * qty),
+      (total, { effective_price = 0, qty = 0 }) => total + (Number(effective_price) * qty),
       0
     );
     this.totalKhr = Math.round(this.totalPrice * this.exchangeRate());
@@ -74,7 +74,6 @@ export class CheckoutPage {
       this.router.navigate(['/product-list']);
     });
   }
-
 
   orderPurchase() {
     this.loadingPurchase = true;

@@ -5,15 +5,11 @@
             <div class="row">
                 
                 @for (p of AllData; track p.id) {
-                     <div class="col-6 col-sm-4 col-md-4 col-lg-4 p-2 position-relative">
 
-                        @if (p.qty > 0) {
-                        <span class="qty-badge">{{ p.qty }}</span>
-                        }
-                        
-                        <div class="ticket-card" [class.has-qty]="p.qty > 0" (click)="increase(p)">
+                    <!-- <div class="col-6 col-sm-4 col-md-4 col-lg-4 p-2 position-relative">
 
-                            <!-- Image with overlay badges -->
+                        <article class="ticket-card" [class.has-qty]="p.qty > 0" (click)="increase(p)">
+
                             <div class="ticket-image-wrap">
                                 <img class="ticket-image" [src]="p.image" [alt]="p.name" />
 
@@ -22,15 +18,14 @@
                                 }
 
                                 @if (p.discount_percentage > 0) {
-                                <span class="discount-ribbon">-{{ p.discount_percentage }}%</span>
+                                <span class="discount-ribbon">−{{ p.discount_percentage }}%</span>
                                 }
 
-                                <!-- @if (p.qty > 0) {
+                                @if (p.qty > 0) {
                                 <span class="qty-badge">{{ p.qty }}</span>
-                                } -->
+                                }
                             </div>
 
-                            <!-- Body -->
                             <div class="ticket-body">
                                 <h6 class="ticket-name">{{ p.name }}</h6>
 
@@ -90,10 +85,11 @@
                                 </div>
                             </div>
 
-                        </div>
+                        </article>
 
-                    </div>
-                    <!-- <div class="col-6 col-sm-4 col-md-4 col-lg-4 p-2 position-relative">
+                    </div> -->
+
+                    <div class="col-6 col-sm-4 col-md-4 col-lg-4 p-2 position-relative">
 
                         @if (p.qty > 0) {
                             <div class="count-item">
@@ -106,11 +102,11 @@
 
                             <div class="card-body">
                                 <h6 class="item-name mb-1">
-                                    {{ p.name }}
+                                    {{ p.product_name }}
                                 </h6>
 
                                 <p class="item-price mb-2">
-                                    ${{ p.price }}
+                                    ${{ p.effective_price }}
                                 </p>
 
                                 <div class="d-flex align-items-center gap-2">
@@ -127,7 +123,7 @@
                             </div>
                         </div>
 
-                    </div> -->
+                    </div>
                 }
 
             </div>
