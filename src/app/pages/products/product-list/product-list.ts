@@ -34,8 +34,6 @@ export class ProductList {
 
   ngOnInit() {
     // this.saveUserToken(); 
-
-    alert(this.telegramService.getWebApp().platform)
     
     // this.LoadTelegramUserInfo();
     this.hideBackButton();
