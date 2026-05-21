@@ -41,6 +41,8 @@ export class ProductList {
     this.getTicketsTypes();
     console.log('data added', this.cartService.getCart())
 
+    this.telegramService.getWebApp().openLink('abamobilebank://ababank.com?type=payway&qrcode=00020101021230510016abaakhppxxx%40abaa01153260423164319600208ABA+Bank5204787653038405406264.005802KH5915GOMAMA+PLAY+SHV6014SIHANOUK+VILLE6226050701260940711202605003709975001317793342171520113177933451764467170013F1BF016411FDA6804PQRA6908purchase6304C36')
+
     // const usertoken = this.telegramService.getWebApp().initData;
     // this.tgInfo = usertoken;
     // console.log('tg info', this.tgInfo)
