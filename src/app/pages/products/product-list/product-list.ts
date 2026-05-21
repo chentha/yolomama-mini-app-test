@@ -41,12 +41,8 @@ export class ProductList {
     this.getTicketsTypes();
     console.log('data added', this.cartService.getCart())
 
-    const url = "abamobilebank://ababank.com?type=payway&qrcode=00020101021230510016abaakhppxxx%40abaa01153260423164319600208ABA+Bank5204787653038405406264.005802KH5915GOMAMA+PLAY+SHV6014SIHANOUK+VILLE6226050701260940711202605003709975001317793342171520113177933451764467170013F1BF016411FDA6804PQRA6908purchase6304C361"
-  console.log('open link', url)
-    this.telegramService.getWebApp().openLink(
-      url,                    // ← HTTPS Universal Link, not custom scheme
-      { try_instant_view: false }
-  );
+    const url = "https://abamobilebank://ababank.com?type=payway&qrcode=00020101021230510016abaakhppxxx%40abaa01153260423164319600208ABA+Bank5204787653038405406264.005802KH5915GOMAMA+PLAY+SHV6014SIHANOUK+VILLE6226050701260940711202605003709975001317793342171520113177933451764467170013F1BF016411FDA6804PQRA6908purchase6304C361"
+    this.tryAbaWithKhqrFallback(url);
 
 
     // const usertoken = this.telegramService.getWebApp().initData;
@@ -54,6 +50,47 @@ export class ProductList {
     // console.log('tg info', this.tgInfo)
   }
 
+    //Function open deeplink with ABA Mobile, if failed open KHQR
+  tryAbaWithKhqrFallback(deeplink:any) {
+    const tg = this.telegramService.getWebApp();
+    let appOpened = false;
+
+    // 1. Telegram-native event (most reliable when available, Bot API 7.0+)
+    const onDeactivated = () => { appOpened = true; };
+
+    // 2. DOM fallback events (for older Telegram clients)
+    const onHidden = () => {
+      if (document.visibilityState === 'hidden') appOpened = true;
+    };
+    const onBlur = () => { appOpened = true; };
+
+    // Attach all listeners
+    tg?.onEvent?.('deactivated', onDeactivated);
+    document.addEventListener('visibilitychange', onHidden);
+    window.addEventListener('blur', onBlur);
+    window.addEventListener('pagehide', onBlur);
+
+    const cleanup = () => {
+      tg?.offEvent?.('deactivated', onDeactivated);
+      document.removeEventListener('visibilitychange', onHidden);
+      window.removeEventListener('blur', onBlur);
+      window.removeEventListener('pagehide', onBlur);
+    };
+
+    // Attempt to open ABA Mobile
+    tg.openLink(deeplink, { try_instant_view: false });
+    // window.location.href = this.deeplink;
+
+    // After 1.5s, decide
+    setTimeout(() => {
+      cleanup();
+      // Still visible + never went background = app not installed
+      if (!appOpened && document.visibilityState === 'visible') {
+        // this.zone.run(() => this.openKhqr());
+        console.log('ABA Mobile not detected, fallback to KHQR');
+      }
+    }, 1500);
+  }
 
   saveUserToken() {
 
