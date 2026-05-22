@@ -1,0 +1,212 @@
+$khqr-red: #E21F26;
+$khqr-navy: #1B2A4E;
+$khqr-teal: #00B5A5;
+$khqr-bg: #F4F5F7;
+$khqr-text-muted: #8a8f99;
+$khqr-border: #e5e7eb;
+
+
+// === Card container ===
+.khqr-card {
+  width: 100%;
+  // max-width: 360px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 2rem 0.75rem;
+  }
+
+  &__title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: $khqr-navy;
+    margin: 0;
+    letter-spacing: 0.5px;
+  }
+
+  &__close {
+    background: none;
+    border: none;
+    color: $khqr-teal;
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.15s;
+
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+
+  &__body {
+    padding: 0 2rem 1.25rem;
+  }
+
+  &__countdown {
+    text-align: center;
+    padding: 0.75rem 1.5rem 0.25rem;
+    color: $khqr-text-muted;
+    font-size: 0.8rem;
+
+    strong {
+      color: $khqr-red;
+    }
+  }
+
+  &__footer {
+    text-align: center;
+    padding: 1rem 1.5rem 1.5rem;
+    color: $khqr-text-muted;
+    font-size: 0.875rem;
+    line-height: 1.4;
+  }
+}
+
+// === Ticket-style inner card ===
+.khqr-ticket {
+  background: #fff;
+  border: 1px solid $khqr-border;
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+
+  &__banner {
+    background: $khqr-red;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    // border-bottom-right-radius: 32px;
+
+  }
+
+  &-ribbon {
+    position: absolute;
+    background: $khqr-red;
+    width: 100px;
+    height: 50px;
+    right: -40px;
+    transform: rotate(45deg);
+    top: 20px;
+  }
+
+  &__banner-logo {
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    font-family: "Arial Black", "Helvetica Neue", sans-serif;
+  }
+
+  &__amount-row {
+    padding: 1rem 2.8rem;
+    border-bottom: 2px dashed #d1d5db;
+    position: relative;
+
+    // Ticket perforation circles on the sides
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: -10px;
+      width: 20px;
+      height: 20px;
+      background: $khqr-bg;
+      border-radius: 50%;
+      z-index: 1;
+    }
+
+    &::before {
+      left: -11px;
+    }
+
+    &::after {
+      right: -11px;
+    }
+  }
+
+  &__shop {
+    font-size: 12px;
+    font-weight: 500;
+    // color: $khqr-text-muted;
+    letter-spacing: 1px;
+    margin: 0 0 0.35rem;
+    text-transform: uppercase;
+  }
+
+  &__amount {
+    font-size: 22px;
+    font-weight: 700;
+    color: $khqr-navy;
+    margin: 0;
+  }
+
+  &__amount-currency {
+    font-weight: 500;
+    margin-right: 5px;
+  }
+
+  &__qr {
+    padding: 2.5rem 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    min-height: 280px;
+  }
+
+  &__qr-img {
+    width: 240px;
+    height: 240px;
+    display: block;
+  }
+
+  &__qr-logo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 48px;
+    height: 48px;
+    background: #1a1a1a;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    font-weight: 700;
+    border: 3px solid #fff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    z-index: 10;
+  }
+}
+
+// === Spinner fallback (in case Bootstrap isn't loaded) ===
+.spinner-border {
+  width: 2rem;
+  height: 2rem;
+  border: 0.25em solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: khqr-spin 0.75s linear infinite;
+  color: $khqr-text-muted;
+}
+
+@keyframes khqr-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

@@ -43,11 +43,17 @@ export const routes: Routes = [
             //     redirectTo: 'product-list',
             //     pathMatch: 'full'
             // },
+            {
+                path: 'payment-completed/:data',
+                canActivate: [authGuard],
+                loadComponent: () =>
+                    import('./pages/payment-completed/payment-completed').then(c => c.PaymentCompleted)
+            },
             // {
-            //     path: 'payment-completed',
-            //     canActivate: [authGuard],
+            //     path: 'transaction/:data',
+            //     // canActivate: [authGuard],
             //     loadComponent: () =>
-            //         import('./pages/payment-completed/payment-completed').then(c => c.PaymentCompleted)
+            //         import('./pages/transaction/transaction').then(c => c.Transaction)
             // },
             {
                 path: 'payment-method/:data',
@@ -55,13 +61,32 @@ export const routes: Routes = [
                 loadComponent: () =>
                     import('./pages/payment-method/payment-method').then(c => c.PaymentMethod)
             },
+
+            // {
+            //     path: 'khqr',
+            //     // canActivate: [authGuard],
+            //     loadComponent: () =>
+            //         import('./pages/payment-method/aba-khqr/aba-khqr').then(c => c.AbaKhqr)
+            // },
+            // {
+            //     path: 'transaction-aba/:data',
+            //     // canActivate: [authGuard],
+            //     loadComponent: () =>
+            //         import('./pages/transaction-aba/transaction-aba').then(c => c.TransactionAba)
+            // },
             {
-                path: 'aba-payment/:data',
+                path: 'aba-payment',
                 // canActivate: [authGuard],
                 loadComponent: () =>
                     import('./pages/aba-payment/aba-payment').then(c => c.AbaPayment)
             },
-             {
+            // {
+            //     path: 'transaction-aba/:data',
+            //     // canActivate: [authGuard],
+            //     loadComponent: () =>
+            //         import('./pages/transaction-aba/transaction-aba').then(c => c.TransactionAba)
+            // },
+            {
                 path: 'forbidden',
                 // canActivate: [authGuard],
                 loadComponent: () =>

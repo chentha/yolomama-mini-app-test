@@ -1,413 +1,306 @@
-  /* ── CARD ── */
-  .card {
-    // background: #fff;
-    border-radius: 26px;
-    padding: 10px 5px 20px;
-    border: none;
-    // box-shadow: 0 24px 70px rgba(0, 0, 0, 0.13);
-    overflow: hidden;
+@use 'sass:color';
+@use '../../../assets/styles/var.scss' as *;
+
+$oc-primary:        #3a9b6b;
+$oc-primary-soft:   #3a9b6b11;
+$oc-success:        #16a34ab8;
+$oc-success-soft:   #dcfce7;
+$oc-text:           #0f172a;
+$oc-text-muted:     #64748b;
+$oc-text-faint:     #94a3b8;
+$oc-border:         #eef0f3;
+$oc-card:           #ffffff;
+$oc-bg:             #f6f7fb;
+$oc-table-head-bg:  #fafbfd;
+$oc-ghost-bg:       #f1f3f7;
+$oc-white:          #ffffff;
+$oc-radius:         16px;
+
+
+.order-complete {
+  // min-height: 100vh;
+  // min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  color: $oc-text;
+  // padding-top: env(safe-area-inset-top);
+  // padding-bottom: calc(env(safe-area-inset-bottom) + 100px);
+
+  &__hero {
+    text-align: center;
+    padding: 36px 20px 24px;
   }
 
-  /* drag handle */
-  .handle {
-    width: 36px;
-    height: 4px;
-    // background: #cdd6d9;
-    border-radius: 99px;
-    margin: 10px auto 20px;
-  }
-
-  /* ── SUCCESS ICON ── */
-  .success-icon-wrap {
+  &__check {
     display: flex;
     justify-content: center;
-    margin-bottom: 16px;
-    animation: popIn .55s .05s cubic-bezier(.34, 1.56, .64, 1) both;
+    margin: 0 auto 30px;
   }
 
-  .success-icon {
-    position: relative;
-    width: 72px;
-    height: 72px;
+  &__title {
+    font-size: 22px;
+    font-weight: 800;
+    margin: 0 0 6px;
+    letter-spacing: -0.01em;
+  }
+
+  &__subtitle {
+    font-size: 14px;
+    color: $oc-text-muted;
+    margin: 0 0 18px;
+  }
+
+  &__meta {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
+    gap: 10px;
   }
 
-  .success-icon__ring {
-    position: absolute;
-    inset: 0;
-    border-radius: 50%;
-    background: conic-gradient(#52c07d 0%, #7ed4a4 55%, #3e9e6f 100%);
-    animation: ringIn .65s cubic-bezier(.34, 1.56, .64, 1) both;
+  &__order-no {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: $oc-primary-soft;
+    color: $oc-primary;
+    padding: 10px 16px;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 14px;
+
+    &-label {
+      color: $oc-text-muted;
+      font-weight: 500;
+      margin-right: 2px;
+    }
   }
 
-  .success-icon__ring::after {
-    content: '';
-    position: absolute;
-    inset: 4px;
-    border-radius: 50%;
-    background: #fff;
+  &__order-date {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: $oc-text-muted;
+    font-size: 12.5px;
+    font-weight: 500;
+
+    svg {
+      width: 14px;
+      height: 14px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      flex-shrink: 0;
+    }
   }
 
-  .success-icon__disc {
-    position: absolute;
-    inset: 9px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #3e9e6f, #52c07d);
-    box-shadow: 0 6px 20px rgba(62, 158, 111, .30);
-    z-index: 1;
+  &__section {
+    // margin: 14px;
+    background: $oc-card;
+    border-radius: $oc-radius;
+    overflow: hidden;
+    box-shadow: 0 1px 0 rgba($oc-text, 0.03);
+
+    &-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 16px;
+      border-bottom: 1px solid $oc-border;
+    }
+
+    &-title {
+      font-size: 14px;
+      font-weight: 700;
+      margin: 0;
+    }
+
+    &-badge {
+      font-size: 12px;
+      color: $oc-text-muted;
+      font-weight: 500;
+    }
   }
 
-  .success-icon__check {
-    position: relative;
-    z-index: 2;
-    width: 26px;
-    height: 26px;
-    color: #fff;
+  &__table-wrap {
+    overflow-x: auto;
   }
 
-  .success-icon__check svg {
+  &__table {
     width: 100%;
-    height: 100%;
-    stroke: currentColor;
-    stroke-width: 2.8;
+    border-collapse: collapse;
+    font-size: 13px;
+    margin: 0;
+
+    thead th {
+      background: $oc-table-head-bg;
+      color: $oc-text-muted;
+      font-weight: 600;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 12px 14px;
+      text-align: left;
+      border-bottom: 1px solid $oc-border;
+      white-space: nowrap;
+
+      &.is-center { text-align: center; }
+      &.is-right  { text-align: right; }
+    }
+
+    tbody td {
+      padding: 14px;
+      border-bottom: 1px solid $oc-border;
+      vertical-align: top;
+      color: $oc-text;
+      font-weight: 500;
+    }
+
+    tbody tr:last-child td { border-bottom: none; }
+  }
+
+  &__item-name {
+    display: block;
+    font-weight: 600;
+    font-size: 13px;
+    line-height: 1.35;
+    color: $oc-text;
+  }
+
+  &__price {
+    text-align: right;
+    white-space: nowrap;
+    color: $oc-text-muted;
+  }
+
+  &__total {
+    text-align: right;
+    white-space: nowrap;
+    color: $oc-text;
+  }
+
+  &__amount-main {
+    display: block;
+    font-weight: 700;
+    font-size: 13px;
+    color: $oc-text;
+    line-height: 1.3;
+  }
+
+  &__amount-sub-line {
+    display: block;
+    font-size: 10.5px;
+    font-weight: 500;
+    color: $oc-text-faint;
+    margin-top: 2px;
+    line-height: 1.2;
+  }
+
+  &__summary {
+    padding: 14px 16px;
+
+    &-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 6px 0;
+      font-size: 13px;
+      color: $oc-text-muted;
+
+      &--grand {
+        border-top: 1px dashed $oc-border;
+        margin-top: 8px;
+        padding-top: 12px;
+        font-size: 15px;
+        color: $oc-text;
+        font-weight: 700;
+
+        .order-complete__amount {
+          color: $oc-primary;
+          font-size: 17px;
+          font-weight: 800;
+        }
+      }
+    }
+  }
+
+  &__amount-sub {
+    display: block;
+    font-size: 11px;
+    font-weight: 500;
+    color: $oc-text-muted;
+    text-align: right;
+    margin-top: 2px;
+  }
+}
+
+
+.success-icon {
+  position: relative;
+  width: 92px;
+  height: 92px;
+  border-radius: 50%;
+  background: $oc-success;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 14px 32px rgba($oc-success, 0.3);
+  transform: scale(0);
+  animation: oc-pop 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s forwards;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: -14px;
+    border-radius: 50%;
+    background: rgba($oc-success, 0.1);
+    z-index: -1;
+    opacity: 0;
+    transform: scale(0.7);
+    animation: oc-halo 0.6s ease-out forwards;
+  }
+
+  svg {
+    width: 48px;
+    height: 48px;
+    fill: none;
+    stroke: $oc-white;
+    stroke-width: 3.5;
     stroke-linecap: round;
     stroke-linejoin: round;
-    fill: none;
-    stroke-dasharray: 30;
-    stroke-dashoffset: 30;
-    animation: drawCheck .35s .45s ease forwards;
+    
+    // Path now reports length as 1 — these values are simple
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    animation: oc-draw 0.45s cubic-bezier(0.65, 0, 0.45, 1) 0.45s forwards;
   }
+}
 
-  /* confetti dots */
-  .dot {
-    position: absolute;
-    border-radius: 50%;
-    animation: dotPop .5s .4s cubic-bezier(.34, 1.56, .64, 1) both;
+@keyframes oc-pop {
+  0%   { transform: scale(0);   }
+  60%  { transform: scale(1.1); }
+  100% { transform: scale(1);   }
+}
+
+@keyframes oc-halo {
+  to {
+    opacity: 1;
+    transform: scale(1);
   }
+}
 
-  .dot--amber {
-    width: 8px;
-    height: 8px;
-    background: #f0a500;
-    top: 2px;
-    right: 6px;
-    --dx: 5px;
-    --dy: -6px;
+@keyframes oc-draw {
+  to {
+    stroke-dashoffset: 0;
   }
+}
 
-  .dot--teal {
-    width: 6px;
-    height: 6px;
-    background: #2AABEE;
-    bottom: 4px;
-    left: 4px;
-    --dx: -4px;
-    --dy: 5px;
-  }
-
-  @keyframes popIn {
-    from {
-      opacity: 0;
-      transform: scale(.5);
-    }
-
-    to {
-      opacity: 1;
-      transform: scale(1);
-    }
-  }
-
-  @keyframes ringIn {
-    from {
-      opacity: 0;
-      transform: rotate(-180deg) scale(.6);
-    }
-
-    to {
-      opacity: 1;
-      transform: rotate(0deg) scale(1);
-    }
-  }
-
-  @keyframes drawCheck {
-    to {
-      stroke-dashoffset: 0;
-    }
-  }
-
-  @keyframes dotPop {
-    from {
-      opacity: 0;
-      transform: scale(0) translate(0, 0);
-    }
-
-    to {
-      opacity: 1;
-      transform: scale(1) translate(var(--dx, 0px), var(--dy, 0px));
-    }
-  }
-
-  @keyframes riseUp {
-    from {
-      opacity: 0;
-      transform: translateY(16px);
-    }
-
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  /* ── HDR ── */
-  .hdr {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 8px;
-    text-align: center;
-    animation: riseUp .4s .2s ease both;
-  }
-
-  .hdr-title {
-    font-size: 20px;
-    font-weight: 700;
-    color: #1b2c32;
-  }
-
-  /* ── SUMMARY TEXT ── */
-  .summary-head {
-    font-size: 0.9rem;
-    color: #1b2c3298;
-    line-height: 1.6;
-    letter-spacing: 0.2px;
-    margin-bottom: 18px;
-    text-align: center;
-    animation: riseUp .4s .28s ease both;
-  }
-
-  .summary-head b {
-    font-weight: 700;
-  }
-
-  .summary-head .venue {
-    color: #3d5c64;
-    font-weight: 700;
-  }
-
-  /* ── TX BOX BODY ── */
-  .tx-box-body {
-    background: #f3f7f8;
-    box-shadow: rgba(99, 99, 99, 0.124) 0px 2px 8px 0px;
-    border-radius: 22px;
-    overflow: hidden;
-    animation: riseUp .4s .35s ease both;
-  }
-
-  /* ticket header */
-  .ticket_header {
-    background: linear-gradient(105deg, #3e9e6f 0%, #52c07d 100%);
-    border-radius: 22px 22px 0 0;
-    padding: 16px 22px 18px;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .ticket_header::before {
-    content: '';
-    position: absolute;
-    right: -30px;
-    top: -30px;
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, .10);
-    pointer-events: none;
-  }
-
-  .ticket_header::after {
-    content: '';
-    position: absolute;
-    right: 20px;
-    bottom: -35px;
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, .07);
-    pointer-events: none;
-  }
-
-  .ticket_badge {
-    font-size: .67rem;
-    font-weight: 700;
-    letter-spacing: .9px;
-    text-transform: uppercase;
-    color: rgba(255, 255, 255, .70);
-    margin-bottom: 5px;
-    position: relative;
-    z-index: 1;
-  }
-
-  .ticket_venue {
-    font-size: 1.22rem;
-    font-weight: 800;
-    color: #fff;
-    letter-spacing: -.2px;
-    position: relative;
-    z-index: 1;
-  }
-
-  /* tear */
-  .ticket_tear {
-    display: flex;
-    align-items: center;
-    background: #ffffff;
-    position: relative;
-    overflow: visible;
-  }
-
-  .ticket_tear::before,
-  .ticket_tear::after {
-    content: '';
-    position: absolute;
-    width: 22px;
-    height: 22px;
-    border-radius: 50%;
-    background: #f3f7f8;
-    z-index: 2;
-    top: 50%;
-    transform: translateY(-50%);
-  }
-
-  .ticket_tear::before {
-    left: -11px;
-  }
-
-  .ticket_tear::after {
-    right: -11px;
-  }
-
-  .ticket_dash {
-    flex: 1;
-    border-top: 2px dashed #d8e3e6;
-    margin: 11px 18px;
-  }
-
-  /* tx-box rows */
-  .tx-box {
-    border-radius: 0 0 16px 16px;
-    padding: 10px 15px 4px;
-    background: #fff;
-  }
-
-  .tx-box-lbl {
-    font-size: 12px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: #7a9098;
-    margin-bottom: 10px;
-  }
-
-  .row-value {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 11px 0;
-    border-bottom: 1px solid #e3ecee;
-  }
-
-  .row-value:last-child {
-    border-bottom: none;
-    padding-bottom: 14px;
-  }
-
-  .label {
-    font-size: 14px;
-    color: #5a7078;
-    font-weight: 500;
-  }
-
-  .value {
-    font-size: 14px;
-    font-weight: 600;
-    color: #1b2c32;
-    text-align: right;
-  }
-
-  /* order badge */
-  .order-num {
-    background: #eef3f5;
-    border: 1px solid #d4e0e3;
-    border-radius: 7px;
-    padding: 2px 8px;
-    font-weight: 700;
-    color: #2d5460;
-    letter-spacing: 0.3px;
-    font-size: 13px;
-  }
-
-  /* ticket pill */
-  .ticket-pill {
-    background: #fff7e6;
-    border: 1px solid #fcd77a;
-    border-radius: 20px;
-    padding: 2px 9px;
-    font-size: 0.8rem;
-    font-weight: 700;
-    color: #b45309;
-  }
-
-  .value--green {
-    color: #3e9e6f;
-    font-size: 15px;
-  }
-
-  /* ── TELEGRAM NOTICE ── */
-  .tg-notice {
-    display: flex;
-    align-items: flex-start;
-    gap: 11px;
-    background: #e4f3fc;
-    border: 1px solid #b8ddf5;
-    border-radius: 14px;
-    padding: 13px 15px;
-    margin-top: 14px;
-    animation: riseUp .4s .44s ease both;
-  }
-
-  .tg-notice__icon {
-    flex-shrink: 0;
-    width: 34px;
-    height: 34px;
-    border-radius: 50%;
-    background: #2AABEE;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .tg-notice__icon svg {
-    width: 17px;
-    height: 17px;
-    fill: #fff;
-  }
-
-  .tg-notice__title {
-    font-size: .85rem;
-    font-weight: 700;
-    color: #1565a6;
-    margin-bottom: 3px;
-  }
-
-  .tg-notice__body {
-    font-size: .79rem;
-    color: #2e6d9e;
-    line-height: 1.55;
-  }
-
-  .tg-notice__body strong {
-    font-weight: 700;
-  }
+// @media (max-width: 380px) {
+//   .order-complete {
+//     &__table thead th,
+//     &__table tbody td { padding: 12px 10px; }
+//     &__title { font-size: 20px; }
+//     &__amount-main { font-size: 12.5px; }
+//     &__amount-sub-line { font-size: 10px; }
+//   }
+// }

@@ -1,111 +1,123 @@
-<div class="container mt-2 page-pad">
-    <div class="row justify-content-center p-2">
+<div class="container mt-2">
+    <div class="row justify-content-center">
         <div class="col-12 col-md-9 col-lg-6">
-            <div class="card">
-                <div class="handle"></div>
 
-                <div id="defaultView">
+            <div class="order-complete">
 
-                    <!-- Success icon -->
-                    <div class="success-icon-wrap">
+                <section class="order-complete__hero">
+                    <div class="order-complete__check">
                         <div class="success-icon">
-                            <div class="success-icon__ring"></div>
-                            <div class="success-icon__disc"></div>
-                            <div class="success-icon__check">
-                                <svg viewBox="0 0 24 24">
-                                    <polyline points="20 6 9 17 4 12" />
-                                </svg>
-                            </div>
-                            <span class="dot dot--amber"></span>
-                            <span class="dot dot--teal"></span>
-                        </div>
-                    </div>
-
-                    <!-- Header -->
-                    <div class="hdr">
-                        <span class="hdr-title">Payment Successful!</span>
-                    </div>
-
-                    <!-- Summary -->
-                    <p class="summary-head">
-                        Your booking for <span class="venue">GoMaMaPlay</span> has been<br>
-                        confirmed. Enjoy your visit!
-                    </p>
-
-                    <!-- Ticket card -->
-                    <div class="tx-box-body">
-
-                        <div class="ticket_header">
-                            <div class="ticket_badge">Booking Confirmed</div>
-                            <div class="ticket_venue">GoMaMaPlay</div>
-                        </div>
-
-                        <div class="ticket_tear">
-                            <div class="ticket_dash"></div>
-                        </div>
-
-                        <div class="tx-box">
-
-                            <div class="row-value">
-                                <div class="label">Order ID</div>
-                                <div class="value">
-                                    <span class="order-num">{{ paymentData.order_number }} </span>
-                                </div>
-                            </div>
-
-                            <div class="row-value">
-                                <div class="label">Visit Date</div>
-                                <div class="value">{{ formattedVisitDate }}</div>
-                            </div>
-
-                            <div class="row-value">
-                                <div class="label">Tickets</div>
-                                <div class="value">
-                                    {{ paymentData.total_tickets }}
-                                </div>
-                            </div>
-
-                            <div class="row-value">
-                                <div class="label">Total Paid</div>
-                                <div class="value value--green">${{ paymentData.total }} {{ paymentData.currency }}</div>
-                            </div>
-
-                        </div><!-- /tx-box -->
-                    </div><!-- /tx-box-body -->
-
-                    <!-- Telegram notice -->
-                    <div class="tg-notice">
-                        <div class="tg-notice__icon">
-                            <svg viewBox="0 0 24 24">
-                                <path
-                                    d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z" />
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <polyline points="20 6 9 17 4 12" />
                             </svg>
                         </div>
-                        <div>
-                            <div class="tg-notice__title">e-Ticket on the way!</div>
-                            <p class="tg-notice__body">
-                                Your e-Ticket will be sent to your <strong>Telegram bot</strong>.<br>
-                                Please check your Telegram messages shortly.
-                            </p>
+                    </div>
+                    <h2 class="order-complete__title">Thank you for your order!</h2>
+                    <p class="order-complete__subtitle">Your payment was successful and tickets are ready.</p>
+
+                    <div class="order-complete__meta">
+                        <div class="order-complete__order-no">
+                            <span class="order-complete__order-no-label">Order No :</span>
+                            <span>{{ orderData.tran_id }}</span>
+                        </div>
+                        <div class="order-complete__order-date">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                <rect x="3" y="5" width="18" height="16" rx="2" ry="2" />
+                                <line x1="3" y1="10" x2="21" y2="10" />
+                                <line x1="8" y1="3" x2="8" y2="7" />
+                                <line x1="16" y1="3" x2="16" y2="7" />
+                            </svg>
+                            <span>{{ orderData.created_at | date:'dd MMM yyyy, h:mm a' }}</span>
                         </div>
                     </div>
+                </section>
 
-                </div><!-- /defaultView -->
-            </div><!-- /card -->
+                <section class="order-complete__section">
+                    <div class="order-complete__section-head">
+                        <h3 class="order-complete__section-title">
+                            Order Items
+                        </h3>
+                        <span class="order-complete__section-badge">{{ dataTicket?.length || 0 }} items</span>
+                    </div>
+
+                    <div class="order-complete__table-wrap">
+                        <table class="order-complete__table">
+                            <thead>
+                                <tr>
+                                    <th>Item</th>
+                                    <th class="is-center">Qty</th>
+                                    <th class="is-right">Price</th>
+                                    <th class="is-right">Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @for(item of dataTicket; track $index) {
+                                    <tr>
+                                        <td>
+                                            <span class="order-complete__item-name">{{ item.product_name }}</span>
+                                        </td>
+                                        <td class="text-center">{{ item.qty }}</td>
+                                        <td class="order-complete__price">
+                                            @if (orderData.currency === 'USD') {
+                                                <span class="order-complete__amount-main">{{ item.effective_price | number:'1.2-2' }} USD</span>
+                                            } @else {
+                                                <span class="order-complete__amount-main">{{ allFunctions.formatKhr(item.effective_price * exchangeRate) }} KHR</span>
+                                            }
+                                
+                                        </td>
+                                        <td class="order-complete__total">
+                                             @if (orderData.currency === 'USD') {
+                                                <span class="order-complete__amount-main">{{  (item.effective_price * item.qty ) | number:'1.2-2' }} USD</span>
+                                            } @else {
+                                                <span class="order-complete__amount-main">{{ allFunctions.formatKhr((item.effective_price * exchangeRate) * item.qty ) }}  KHR</span>
+                                            }
+                                            <!-- <span class="order-complete__amount-main">{{ item.effective_price * item.qty | number:'1.2-2' }} USD</span>
+                                            <span class="order-complete__amount-sub-line">{{ item.effective_price * item.qty * exchangeRate | number:'1.0-0' }} KHR</span> -->
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="order-complete__summary">
+                        <div class="order-complete__summary-row">
+                            <span>Subtotal</span>
+                            @if (orderData.currency==='USD' ) { 
+                                <span class="order-complete__amount">{{ orderData.amount | number:'1.2-2' }} USD</span>
+                            } @else {
+                                <span class="order-complete__amount">{{ allFunctions.formatKhr(orderData.amount) }} KHR</span>
+                            }
+                        </div>
+                        <div class="order-complete__summary-row order-complete__summary-row--grand">
+                            <span>Total</span>
+                            <span>
+                                @if (orderData.currency === 'USD') {
+                                    <span class="order-complete__amount">{{ orderData.amount | number:'1.2-2' }} USD</span>
+                                } @else {
+                                    <span class="order-complete__amount">{{ allFunctions.formatKhr(orderData.amount) }} KHR</span>
+                                }
+                               
+                            </span>
+                        </div>
+                    </div>
+                </section>
+
+
+            </div>
+
         </div>
     </div>
 </div>
 
-
-<!-- Bottom Cart Bar -->
 <div class="cart-bar-wrapper">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-12 col-md-9 col-lg-6">
                 <div class="cart-bar">
-                    <div (click)="closeApp()" class="btn-cart d-flex justify-content-center align-items-center px-3">
-                        <span>OK</span>
-                    </div>
+                    <button (click)="onCompleted()" class="btn-cart d-flex justify-content-center align-items-center px-3">
+                        <span>Done</span>
+                    </button>
                 </div>
             </div>
         </div>

@@ -1,3 +1,7 @@
+<!-- <app-loading
+  [isLoading]="loading"
+  [loadingText]="'Processing Payment...'"
+/> -->
 
 <div class="container mt-2">
     <div class="row justify-content-center">
@@ -91,6 +95,28 @@
                 }
                 </div>
 
+
+                 @if (ABA_payway_data) {
+                     <form method="POST" target="aba_webservice" action="https://checkout-sandbox.payway.com.kh/api/payment-gateway/v1/payments/purchase" id="aba_merchant_request" >
+                        <input type="hidden" name="hash" value="{{ABA_payway_data.hash}}" id="hash">
+                        <input type="hidden" name="tran_id" value="{{ABA_payway_data.tran_id}}" id="tran_id" />
+                        <input type="hidden" name="amount" value="{{ABA_payway_data.amount}}" />
+                        <input type="hidden" name="merchant_id" value="{{ABA_payway_data.merchant_id}}" />
+                        <input type="hidden" name="req_time" value="{{ABA_payway_data.req_time}}" />
+                        <input type="hidden" name="payment_option" value="{{ABA_payway_data.payment_option}}" id="payment_option" />
+                        <input type="hidden" name="firstname" value="{{ABA_payway_data.firstname}}" />
+                        <input type="hidden" name="lastname" value="{{ABA_payway_data.lastname}}" />
+                        <input type="hidden" name="phone" value="{{ABA_payway_data.phone}}" />
+                        <input type="hidden" name="currency" value="{{ABA_payway_data.currency}}" />
+                        <input type="hidden" name="email" value="{{ABA_payway_data.email}}" />
+                        <input type="hidden" name="return_url" value="{{ABA_payway_data.return_url}}" />
+                        <input type="hidden" name="continue_success_url" value="{{ABA_payway_data.continue_success_url}}" />
+                        <input type="hidden" name="payment_gate" value="0">
+                    </form>
+                    
+                    
+                 }
+
         </div>
     </div>
 </div>
@@ -101,10 +127,11 @@
         <div class="row justify-content-center">
             <div class="col-12 col-md-9 col-lg-6">
                 <div class="cart-bar">
-                     <div (click)="ContinueToPayment()" [class.disabled]="loading" class="btn-cart d-flex justify-content-center align-items-center px-3">
+                     <button (click)="ContinueWithPayment()" [disabled]="loading" class="btn-cart d-flex justify-content-center align-items-center px-3">
                         <span>{{ loading ? 'Processing...' : 'Continue to Payment' }}</span>
                          <!-- <span>Continue to Payment</span> -->
-                    </div>
+                    </button>
+                    <button style="display: none;" id="checkout_button"></button>
                 </div>
             </div>
         </div>

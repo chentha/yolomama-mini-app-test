@@ -17,7 +17,7 @@
               <!-- Left: image + price -->
               <div class="item-media">
                 <div class="image-box">
-                  <img class="item-image" [src]="data.image" [alt]="data.name" />
+                  <img class="item-image" [src]="data.image || 'assets/gallery-icon/ticket-default.svg'" [alt]="data.name" />
                 </div>
                 <!-- <div class="price-wrap">
                   <span class="item-price">${{ data.sales_price | number:'1.2-2' }}</span>
@@ -97,7 +97,7 @@
 
                       <span class="qty-number">{{ data.qty }}</span>
 
-                      <button type="button" class="qty-btn qty-add" [disabled]="data.qty >= data.max_per_order"
+                      <button type="button" class="qty-btn qty-add" 
                         (click)="increase(data)">
                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none"
                           stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -143,7 +143,7 @@
           </div>
           <div class="total-right">
             <div class="total-label">KHR</div>
-            <div class="total-value-khr">{{ formatKhr(totalKhr) }}៛</div>
+            <div class="total-value-khr">{{ allFunctions.formatKhr(totalKhr) }}៛</div>
           </div>
         </div>
 

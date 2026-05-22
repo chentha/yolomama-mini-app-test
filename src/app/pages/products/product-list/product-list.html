@@ -3,6 +3,8 @@
         <div class="col-12 col-md-9 col-lg-6">
 
             <div class="row">
+
+                <!-- <button class="btn btn-info" (click)="openKhqr('')">open khqr</button> -->
                 
                 @for (p of AllData; track p.id) {
 
@@ -98,7 +100,7 @@
                         }
 
                         <div class="card shadow-sm" (click)="increase(p)">
-                            <img [src]="p.image" class="card-img-top p-2" alt="" />
+                            <img [src]="p.image || 'assets/gallery-icon/ticket-default.svg'" class="card-img-top p-2" alt="image-product" />
 
                             <div class="card-body">
                                 <h6 class="item-name mb-1">
@@ -114,7 +116,8 @@
                                         -
                                     </button>
 
-                                    <input type="number" readonly="true" class="form-control text-center qty-input" [value]="p.qty" min="0" (click)="$event.stopPropagation()" />
+                                    <!-- <input type="number" readonly="true" class="form-control text-center qty-input" [value]="p.qty" min="0" (click)="$event.stopPropagation()" /> -->
+                                    <input type="number" class="form-control text-center qty-input" [value]="p.qty" min="0"  (input)="onQtyChange($event, p)" (click)="$event.stopPropagation()" />
 
                                     <button class="btn btn-light btn-sm btn-increase">
                                         +
@@ -136,27 +139,27 @@
 
 <!-- Bottom Cart Bar -->
 @if (totalItems > 0) {
-<div class="cart-bar-wrapper">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-12 col-md-9 col-lg-6">
-                <div class="cart-bar">
-                    <div (click)="AddCart()" class="btn-cart d-flex justify-content-between align-items-center px-3">
+    <div class="cart-bar-wrapper">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-9 col-lg-6">
+                    <div class="cart-bar">
+                        <div (click)="AddCart()" class="btn-cart d-flex justify-content-between align-items-center px-3">
 
-                        <span class="total-item">
-                            {{ totalItems }}
-                        </span>
+                            <span class="total-item">
+                                {{ totalItems }}
+                            </span>
 
-                        <span>View your cart</span>
+                            <span>View your cart</span>
 
-                        <span>
-                            ${{ totalPrice.toFixed(2) }}
-                        </span>
+                            <span>
+                                ${{ totalPrice.toFixed(2) }}
+                            </span>
 
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 }

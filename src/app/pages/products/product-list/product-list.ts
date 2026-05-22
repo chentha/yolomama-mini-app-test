@@ -5,7 +5,7 @@ import { CartService } from '../../../core/services/cart.service';
 import { Telegram } from '../../../core/services/telegram';
 import { Auth } from '../../../core/services/auth';
 import { Api } from '../../../core/services/api';
-import { General } from '../../../core/services/general';
+// import { PaymentConfirm } from '../../payment-confirm/payment-confirm';
 
 @Component({
   selector: 'app-product-list',
@@ -27,13 +27,12 @@ export class ProductList {
     private allApi: Api,
     private cdr: ChangeDetectorRef,
     private router: Router,
-    public allFunction: General
   ) {
 
   }
 
   ngOnInit() {
-    // this.saveUserToken(); 
+    this.saveUserToken();
     
     // this.LoadTelegramUserInfo();
     this.hideBackButton();
@@ -41,61 +40,16 @@ export class ProductList {
     this.getTicketsTypes();
     console.log('data added', this.cartService.getCart())
 
-    const url = "abamobilebank://ababank.com?type=payway&qrcode=00020101021230510016abaakhppxxx%40abaa01153260423164319600208ABA+Bank5204787653038405406264.005802KH5915GOMAMA+PLAY+SHV6014SIHANOUK+VILLE6226050701260940711202605003709975001317793342171520113177933451764467170013F1BF016411FDA6804PQRA6908purchase6304C361"
-    this.tryAbaWithKhqrFallback(url);
-
-
     // const usertoken = this.telegramService.getWebApp().initData;
     // this.tgInfo = usertoken;
     // console.log('tg info', this.tgInfo)
   }
 
-    //Function open deeplink with ABA Mobile, if failed open KHQR
-  tryAbaWithKhqrFallback(deeplink:any) {
-    const tg = this.telegramService.getWebApp();
-    let appOpened = false;
-
-    // 1. Telegram-native event (most reliable when available, Bot API 7.0+)
-    const onDeactivated = () => { appOpened = true; };
-
-    // 2. DOM fallback events (for older Telegram clients)
-    const onHidden = () => {
-      if (document.visibilityState === 'hidden') appOpened = true;
-    };
-    const onBlur = () => { appOpened = true; };
-
-    // Attach all listeners
-    tg?.onEvent?.('deactivated', onDeactivated);
-    document.addEventListener('visibilitychange', onHidden);
-    window.addEventListener('blur', onBlur);
-    window.addEventListener('pagehide', onBlur);
-
-    const cleanup = () => {
-      tg?.offEvent?.('deactivated', onDeactivated);
-      document.removeEventListener('visibilitychange', onHidden);
-      window.removeEventListener('blur', onBlur);
-      window.removeEventListener('pagehide', onBlur);
-    };
-
-    // Attempt to open ABA Mobile
-    tg.openLink(deeplink, { try_instant_view: false });
-    // window.location.href = this.deeplink;
-
-    // After 1.5s, decide
-    setTimeout(() => {
-      cleanup();
-      // Still visible + never went background = app not installed
-      if (!appOpened && document.visibilityState === 'visible') {
-        // this.zone.run(() => this.openKhqr());
-        console.log('ABA Mobile not detected, fallback to KHQR');
-      }
-    }, 1500);
-  }
 
   saveUserToken() {
 
       // const initData = this.telegramService.getWebApp().initData;
-      const initData = 'query_id=AAG7AlRrAAAAALsCVGu8u1XV&user=%7B%22id%22%3A1800667835%2C%22first_name%22%3A%22Hour%20Chentha%22%2C%22last_name%22%3A%22-%20%E1%9E%A0%E1%9F%8A%E1%9E%BD%E1%9E%9A%20%E1%9E%85%E1%9E%B7%E1%9E%93%E1%9F%92%E1%9E%90%E1%9E%B6%22%2C%22username%22%3A%22Hour_Chentha%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%2C%22photo_url%22%3A%22https%3A%5C%2F%5C%2Ft.me%5C%2Fi%5C%2Fuserpic%5C%2F320%5C%2FWPJ2z4bxPl8diYtCXEr6rVUrCkaUI1AHAMcH3ZnHnOo.svg%22%7D&auth_date=1778827026&signature=Tcx2JAXKGPjXOd67twsaO-h4m7EKb4JJtQySW5bgSFm1yli15As7EoH1JSx1FqrtA-jkTCNE71WmMvvcBau8Dw&hash=b0bb5fb71d8679de45a0bb8c253a1bd4e1cbdb46469ff85a2d80cb3e5155fe58'; 
+      const initData = 'query_id=AAG7AlRrAAAAALsCVGtZUlSR&user=%7B%22id%22%3A1800667835%2C%22first_name%22%3A%22Hour%20Chentha%22%2C%22last_name%22%3A%22-%20%E1%9E%A0%E1%9F%8A%E1%9E%BD%E1%9E%9A%20%E1%9E%85%E1%9E%B7%E1%9E%93%E1%9F%92%E1%9E%90%E1%9E%B6%22%2C%22username%22%3A%22Hour_Chentha%22%2C%22language_code%22%3A%22en%22%2C%22allows_write_to_pm%22%3Atrue%2C%22photo_url%22%3A%22https%3A%5C%2F%5C%2Ft.me%5C%2Fi%5C%2Fuserpic%5C%2F320%5C%2FWPJ2z4bxPl8diYtCXEr6rVUrCkaUI1AHAMcH3ZnHnOo.svg%22%7D&auth_date=1779359579&signature=tDtiU-l80Z9_1ToW2hUxWm_9SGwjMC_bU3aESFNe3EzMKkcdPJY6j79pFXPv-Bab_NjP3_37MBc8UTnFaFxHAw&hash=4712c95cb210f05b9d6e0347b22dddf35e5aece04e0ba155849a275c737eb7ca'; 
       console.log('init data', initData)
 
       if (initData) {
@@ -185,16 +139,19 @@ export class ProductList {
   }
 
   //on input in or de cart
-  // onQtyChange(event: Event, p: any) {
-  //   const value = Number((event.target as HTMLInputElement).value);
-  //   console.log('qty number', p)
+  onQtyChange(event: Event, p: any) {
+    const value = Number((event.target as HTMLInputElement).value);
+    console.log('qty number', p)
 
-  //   if (isNaN(value) || value < 0) {
-  //     p.qty = 0;
-  //   } else {
-  //     p.qty = value;
-  //   }
-  // }
+    if (isNaN(value) || value < 0) {
+      p.qty = 0;
+    } else {
+      p.qty = value;
+    }
+
+    this.cartService.setItemQty(p, p.qty);
+    this.cdr.detectChanges();
+  }
 
 
   //update data added

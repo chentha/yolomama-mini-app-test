@@ -9,6 +9,7 @@ import { Loading } from '../../../shared/components/loading/loading';
 import { OrderService } from '../../../core/services/order-service';
 import { CartItem } from '../../../core/models/cart-item.model';
 import { General } from '../../../core/services/general';
+import { create } from 'qrcode';
 
 type Currency = 'USD' | 'KHR';
 
@@ -59,7 +60,7 @@ export class CheckoutPage {
 
 
   // Single source of truth for both totals
-  private recalcTotals(): void {
+  recalcTotals(): void {
     this.totalPrice = (this.CartData ?? []).reduce(
       (total, { effective_price = 0, qty = 0 }) => total + (Number(effective_price) * qty),
       0
@@ -80,6 +81,7 @@ export class CheckoutPage {
     const tmp_obj = {
       items: this.tmpItems,
       visit_date: new Date().toISOString().split('T')[0],
+      currency: this.currency,
       notes: "Buy Tickets"
     };
 
@@ -89,17 +91,20 @@ export class CheckoutPage {
         this.purchaseOrder = response;
         this.loadingPurchase = false;
         this.orderService.setArray(this.purchaseOrder);
-        const data = {
-          id: this.purchaseOrder.id,
-          // totalPrice: this.totalPrice,  
-          totalPriceUSD: this.totalPrice,
-          totalPriceKHR: this.formatKhr(this.totalKhr),
-          currency: this.currency,
+        const tmp_data = {
+          amount: response.amount,
+          currency: response.currency,
+          qrString: response.qrString,
+          lifetime: response.lifetime,
+          merchant_id: response.merchant_id,
+          tran_id: response.status.tran_id,
+          created_at: response.created_at,
+          abapay_deeplink: response.abapay_deeplink,
+          app_store: response.app_store,
+          play_store: response.play_store
         };
-        this.router.navigate([
-          '/payment-method',
-          this.allFunctions.encryptFileForLocal(JSON.stringify(data))
-        ]);
+        // this.AbaQuickBill(tmp_data);
+        this.router.navigate(['/payment-method', this.allFunctions.encryptFileForLocal(JSON.stringify(tmp_data))]);
       },
       (err) => {
         this.loadingPurchase = false;
@@ -107,6 +112,28 @@ export class CheckoutPage {
       }
     );
   }
+
+  //  AbaQuickBill(dataPurchase: any) {
+  //   const tmp_obj = {
+  //     order_id: dataPurchase.data.order_number,
+  //     // payment_option: 'abapay_khqr',
+  //     currency: dataPurchase.currency,
+  //     amount: String(dataPurchase.currency === 'USD'
+  //         ? dataPurchase.totalPriceUSD
+  //         : dataPurchase.totalPriceKHR
+  //     ),
+  //   };
+
+  //   this.allApi.createTransaction(this.allApi.abaQuickBillsUrl, tmp_obj).subscribe(
+  //     (response: any) => {
+
+  //       this.router.navigate(['/payment-method', this.allFunctions.encryptFileForLocal(JSON.stringify(response))]);
+  //     },
+  //     (err) => {
+  //       console.error('Quick bill error:', err);
+  //     }
+  //   );
+  // }
 
   // get all data cart
   getData() {
@@ -116,19 +143,38 @@ export class CheckoutPage {
       this.CartData = cartItems.map(item => ({
         ...item.product,
         qty: item.qty
-      }));
+      }));  
 
-      this.tmpItems = this.CartData.map((item: any) => ({
-        ticket_type_id: item.id,
-        effective_price: item.effective_price,
-        quantity: item.qty
-      }));
+      this.buildTmpItems(); // build tmpItems after CartData is set
 
       console.log('tmpItems', this.tmpItems);
 
       this.recalcTotals();   // recalc after cart loads
     });
   }
+
+
+  buildTmpItems(): void {
+    this.tmpItems = this.CartData.map((item: any) => ({
+      ticket_type_id: item.id,
+      effective_price: this.convertPrice(item.effective_price),
+      // currency: this.currency,
+      quantity: item.qty,
+    }));
+
+    console.log('tmpItems', this.tmpItems);
+  }
+
+
+  //for convert price when currency change
+  convertPrice(usdPrice: number): number {
+    const price = Number(usdPrice) || 0;
+    return this.currency === 'KHR'
+      ? Math.round(price * this.exchangeRate())
+      : price;
+  }
+
+
 
   // increase cart
   increase(p: any) {
@@ -141,6 +187,7 @@ export class CheckoutPage {
     this.recalcTotals();   // recalc after qty change
   }
 
+  //descrease cart
   decrease(p: any) {
     if (p.qty > 1) {
       p.qty--;
@@ -163,13 +210,13 @@ export class CheckoutPage {
     this.recalcTotals();   // recalc after manual input
   }
 
-  formatKhr(amount: number): string {
-    return amount.toLocaleString('en-US');
-  }
+
 
   selectCurrency(c: Currency) {
     this.cartService.setCurrency(c);
     this.currency = c;
+    this.buildTmpItems();
+
   }
 
   // update qty product

@@ -1,0 +1,63 @@
+<div class="khqr-card">
+  <div class="khqr-card__header mb-3">
+    <h3 class="khqr-card__title">ABA KHQR</h3>
+    <button type="button"
+        class="khqr-card__close"
+        aria-label="Close"
+        (click)="onClose()">
+          <svg xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round">
+            <path d="M18 6 6 18"/>
+            <path d="m6 6 12 12"/>
+          </svg>
+    </button>
+  </div>
+
+  <div class="khqr-card__body">
+    <div class="khqr-ticket">
+      <div class="khqr-ticket__banner">
+        <span class="khqr-ticket__banner-logo">
+            <img src="../../../../assets/gallery-icon/khqr-logo.png" width="90" alt="KHQR Logo">
+        </span>
+        <div class="khqr-ticket-ribbon"></div>
+      </div>
+
+      <div class="khqr-ticket__amount-row">
+        <p class="khqr-ticket__shop">{{ shopName }}</p>
+        <p class="khqr-ticket__amount">
+          <span class="khqr-ticket__amount-currency">{{ currencySymbol }}</span>{{ amount | number:'1.2-2' }}
+        </p>
+      </div>
+
+      <div class="khqr-ticket__qr">
+        @if (qrDataUrl; as src) {
+          <img class="khqr-ticket__qr-img" [src]="src" alt="KHQR payment code">
+          <div class="khqr-ticket__qr-logo">{{ currencySymbol }}</div>
+        } @else {
+          <div class="spinner-border text-secondary"></div>
+        }
+      </div>
+    </div>
+  </div>
+
+  @if (!isExpired()) {
+    <div class="khqr-card__countdown">
+      Expires in <strong>{{ countdown() }}</strong>
+    </div>
+  } @else {
+    <div class="khqr-card__countdown">
+      <strong>QR code expired</strong> — please retry
+    </div>
+  }
+
+  <div class="khqr-card__footer">
+    Scan with Bakong App or Mobile Banking app<br>that support KHQR
+  </div>
+</div>

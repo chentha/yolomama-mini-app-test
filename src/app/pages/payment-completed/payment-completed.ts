@@ -1,56 +1,63 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { Api } from '../../core/services/api';
-import { OrderService } from '../../core/services/order-service';
+import { MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute, Router } from '@angular/router';
+import { General } from '../../core/services/general';
+import { CartService } from '../../core/services/cart.service';
+import { CartItem } from '../../core/models/cart-item.model';
 import { Telegram } from '../../core/services/telegram';
-import { Auth } from '../../core/services/auth';
 
 @Component({
   selector: 'app-payment-completed',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './payment-completed.html',
   styleUrl: './payment-completed.scss',
 })
 export class PaymentCompleted {
-  paymentData:any;
-  loadingPayment = false;
+  orderData: any;
+  selectedMethodId: any;
+  loading = false;
+  dataTicket: any;
+  exchangeRate = 4000;
+
 
   constructor(
-    private allApi:Api,
-    private orderService: OrderService,
+    public allFunctions: General,
+    private route: ActivatedRoute,
+    public dialog: MatDialog,
+    private cartService: CartService,
     private telegramService: Telegram,
-    private authService: Auth
-  ){
+  ) {
+    // console.log('type detail', this.dataDetail);
+    this.orderData = JSON.parse(
+      this.allFunctions.decryptFileForLocal(this.route.snapshot.paramMap.get('data')) || '{}'
+    );
+    
+
+    this.getTickets();
+  }
+
+
+  ngOnInit(){
     
   }
 
-  ngOnInit(){
-  
-    this.paymentData = this.orderService.getArray();
-    // if(this.orderData){
-    //   this.idPurchase = this.orderData.id;
-    // }
-    // console.log('data ', this.orderData);
 
-    // this.showBackButton()
-    this.hideBackButton()
-
-  }
-
-   //hide back btn in topbar tg
-  hideBackButton() {
-    this.telegramService.hideBackButton();
-  }
-
-  closeApp(){
+  //on completed and close mini app tg
+  onCompleted(){
     this.telegramService.getWebApp().close();
-    // this.authService.clearStorage()
   }
 
+  getTickets() {
+    this.cartService.getCart().subscribe((cartItems: CartItem[]) => {
+      console.log('cart items', cartItems);
 
-  get formattedVisitDate() {
-    const d = new Date(this.paymentData.visit_date);
-    console.log('date format', d)
-    return d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: '2-digit', year: 'numeric' });
+      this.dataTicket = cartItems.map(item => ({
+        ...item.product,
+        qty: item.qty
+      }));  
+    })
   }
+  
 
 }

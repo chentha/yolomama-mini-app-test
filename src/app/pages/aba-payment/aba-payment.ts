@@ -24,17 +24,21 @@ export class AbaPayment {
     private telegramService: Telegram,
     private allFunctions: General
   ) {
-    this.dataPurchase = JSON.parse(this.allFunctions.decryptFileForLocal(this.route.snapshot.paramMap.get('data')) || '' );
-    if(this.dataPurchase){
-      this.totalPriceUSD = this.dataPurchase.totalPriceUSD;
-      this.totalPriceKHR = this.dataPurchase.totalPriceKHR;
-      this.Currency = this.dataPurchase.currency || 'USD';
-    }
+    // this.dataPurchase = JSON.parse(this.allFunctions.decryptFileForLocal(this.route.snapshot.paramMap.get('data')) || '' );
+    // if(this.dataPurchase){
+    //   this.totalPriceUSD = this.dataPurchase.totalPriceUSD;
+    //   this.totalPriceKHR = this.dataPurchase.totalPriceKHR;
+    //   this.Currency = this.dataPurchase.currency || 'USD';
+    // }
     console.log('data purchase', this.dataPurchase)
+    // if(this.dataPurchase){
+       window.location.href = 'abamobilebank://ababank.com?type=payway&qrcode=00020101021230510016abaakhppxxx%40abaa01153260423164319600208ABA+Bank52047876530384054043.005802KH5915GOMAMA+PLAY+SHV6014SIHANOUK+VILLE6226050701260940711202605003929975001317793488654040113177934916517667170013F1BF016411FDA6804PQRA6908purchase63048F73';
+    // }
+   
   }
 
   ngOnInit(){
-   this.hideBackButton()
+  //  this.hideBackButton()
   }
 
      //hide back btn in topbar tg

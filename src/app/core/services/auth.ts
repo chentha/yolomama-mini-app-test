@@ -38,7 +38,7 @@ export class Auth {
 
   setToken(token: string) {
     sessionStorage.setItem('token', this.generalService.encryptFileForLocal(token))
-    console.log('Token saved in memory.');
+    // console.log('Token saved in memory.');
   }
 
 

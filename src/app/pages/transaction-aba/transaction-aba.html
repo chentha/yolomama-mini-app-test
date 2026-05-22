@@ -101,10 +101,10 @@
         <div class="row justify-content-center">
             <div class="col-12 col-md-9 col-lg-6">
                 <div class="cart-bar">
-                     <div (click)="ContinueToPayment()" [class.disabled]="loading" class="btn-cart d-flex justify-content-center align-items-center px-3">
-                        <span>{{ loading ? 'Processing...' : 'Continue to Payment' }}</span>
-                         <!-- <span>Continue to Payment</span> -->
-                    </div>
+                     <button (click)="ContinueToPayment()" class="btn-cart d-flex justify-content-center align-items-center px-3">
+                        <!-- <span>{{ loading ? 'Processing...' : 'Continue to Payment' }}</span> -->
+                         <span>Continue to Payment</span>
+                    </button>
                 </div>
             </div>
         </div>
