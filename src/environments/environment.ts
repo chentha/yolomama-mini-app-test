@@ -25,7 +25,7 @@ export const environment = {
     measurementId: "G-0X0QPKW1RJ"
   },
 
-  firebasePath: 'sta',   // path for sta
+  firebasePath: 'sta',   // path for dev
   // firebasePath: 'pro/order/',   // path for staging
   // firebasePath: 'sta/order/',   // path for production
 };
